@@ -1,0 +1,9 @@
+{
+  "name": "Trek & Stay",
+  "description": "Welcome to the Wilderness with Trek & Stay - Trekking, monsoon trails, fort adventures, pilgrimage yatras & multi-day experiences.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
+
