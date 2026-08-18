@@ -3,10 +3,11 @@ import { hqDetails } from '../data/destinationsData';
 
 interface FooterProps {
   onOpenBooking: (destination?: string, price?: string) => void;
-  onNavigate: (view: 'home' | 'packages' | 'blogs' | 'campsites' | 'story' | 'help' | 'terms' | 'privacy' | 'cookies' | 'gallery', hash?: string) => void;
+  onOpenPayment?: () => void;
+  onNavigate: (view: 'home' | 'packages' | 'upcoming' | 'blogs' | 'campsites' | 'story' | 'help' | 'terms' | 'privacy' | 'cookies' | 'gallery', hash?: string) => void;
 }
 
-export function Footer({ onOpenBooking, onNavigate }: FooterProps) {
+export function Footer({ onOpenBooking, onOpenPayment, onNavigate }: FooterProps) {
   const whatsappUrl = "https://wa.me/919902937730?text=I%20would%20like%20to%20book%20my%20stay%20with%20trek%20and%20stay";
 
   return (
@@ -40,6 +41,7 @@ export function Footer({ onOpenBooking, onNavigate }: FooterProps) {
             <h4 className="text-[11px] font-bold uppercase tracking-wider text-white mb-4">Quick Links</h4>
             <ul className="space-y-2.5 text-xs">
               <li><button onClick={() => onNavigate('home')} className="hover:text-white transition-colors cursor-pointer">Home</button></li>
+              <li><button onClick={() => onNavigate('upcoming')} className="hover:text-emerald-400 font-bold transition-colors cursor-pointer">Upcoming Itinerary</button></li>
               <li><button onClick={() => onNavigate('packages')} className="hover:text-emerald-400 font-bold transition-colors cursor-pointer">Trek Packages</button></li>
               <li><button onClick={() => onNavigate('blogs')} className="hover:text-emerald-400 font-bold transition-colors cursor-pointer">Blogs</button></li>
               <li><button onClick={() => onNavigate('gallery')} className="hover:text-emerald-400 font-bold transition-colors cursor-pointer">Gallery</button></li>
@@ -52,6 +54,16 @@ export function Footer({ onOpenBooking, onNavigate }: FooterProps) {
             <h4 className="text-[11px] font-bold uppercase tracking-wider text-white mb-4">Support & Legal</h4>
             <ul className="space-y-2.5 text-xs">
               <li><button onClick={() => onNavigate('help')} className="hover:text-white transition-colors cursor-pointer">24/7 Helpline</button></li>
+              {onOpenPayment && (
+                <li>
+                  <button 
+                    onClick={onOpenPayment} 
+                    className="text-emerald-400 hover:text-emerald-300 font-bold transition-colors cursor-pointer flex items-center gap-1"
+                  >
+                    <span>UPI Pay & QR Code</span>
+                  </button>
+                </li>
+              )}
               <li><button onClick={() => onNavigate('home', 'faq')} className="hover:text-white transition-colors cursor-pointer">FAQ & Packing</button></li>
               <li><button onClick={() => onNavigate('terms')} className="hover:text-white transition-colors cursor-pointer">Terms & Conditions</button></li>
               <li><button onClick={() => onNavigate('privacy')} className="hover:text-white transition-colors cursor-pointer">Privacy Policy</button></li>

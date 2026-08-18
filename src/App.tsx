@@ -20,22 +20,26 @@ import { BookingModal } from './components/BookingModal';
 import { VideoModal } from './components/VideoModal';
 import { BlogModal } from './components/BlogModal';
 import { DestinationDetailModal } from './components/DestinationDetailModal';
+import { PaymentQrModal } from './components/PaymentQrModal';
 import { destinationsData, DestinationDetail, hqDetails } from './data/destinationsData';
 import { allBlogsData, BlogPostDetail } from './data/blogData';
 
-export type AppView = 'home' | 'packages' | 'blogs' | 'campsites' | 'story' | 'help' | 'terms' | 'privacy' | 'cookies' | 'gallery';
+export type AppView = 'home' | 'packages' | 'upcoming' | 'blogs' | 'campsites' | 'story' | 'help' | 'terms' | 'privacy' | 'cookies' | 'gallery';
 
 import { StoryView } from './components/StoryView';
 import { HelpCenterView } from './components/HelpCenterView';
 import { PolicyView } from './components/PolicyView';
 import { BlogsPageView } from './components/BlogsPageView';
 import { PackagesPageView } from './components/PackagesPageView';
+import { UpcomingTripsPageView } from './components/UpcomingTripsPageView';
+import { DocumentBrochureView } from './components/DocumentBrochureView';
 import { CampsitesPageView } from './components/CampsitesPageView';
 import { GalleryView } from './components/GalleryView';
 
 export default function App() {
   const [currentView, setCurrentView] = useState<AppView>('home');
   const [isBookingOpen, setIsBookingOpen] = useState(false);
+  const [isPaymentOpen, setIsPaymentOpen] = useState(false);
   const [selectedDestination, setSelectedDestination] = useState('Maharashtra Monsoon Trails');
   const [selectedPrice, setSelectedPrice] = useState('₹13,499');
   const [isVideoOpen, setIsVideoOpen] = useState(false);
@@ -64,12 +68,16 @@ export default function App() {
       } else if (hash === 'blogs' || hash === 'blog') {
         setActiveBlogSlug(null);
         setCurrentView('blogs');
+      } else if (hash === 'upcoming' || hash === 'upcoming-itinerary' || hash === 'itinerary' || hash === 'dodham' || hash === 'dodham-yatra' || hash === 'upcoming-trips' || hash === 'batches') {
+        setCurrentView('upcoming');
       } else if (hash === 'packages' || hash === 'destinations') {
         setCurrentView('packages');
       } else if (hash === 'gallery' || hash === 'photos') {
         setCurrentView('gallery');
       } else if (hash === 'campsites' || hash === 'campsites-hq') {
         setCurrentView('campsites');
+      } else if (hash === 'pay' || hash === 'payment' || hash === 'upi') {
+        setIsPaymentOpen(true);
       } else if (hash === 'terms' || hash === 'privacy' || hash === 'cookies' || hash === 'story' || hash === 'help') {
         setCurrentView(hash as AppView);
       }
@@ -84,6 +92,10 @@ export default function App() {
     setSelectedDestination(destination);
     setSelectedPrice(price);
     setIsBookingOpen(true);
+  };
+
+  const handleOpenPayment = () => {
+    setIsPaymentOpen(true);
   };
 
   const handleSelectDestination = (dest: DestinationDetail) => {
@@ -124,6 +136,7 @@ export default function App() {
       <div className={currentView !== 'home' ? 'bg-slate-950 relative' : ''}>
         <Navbar 
           onOpenBooking={() => handleOpenBooking()} 
+          onOpenPayment={handleOpenPayment}
           onNavigate={handleNavigate}
           activeView={currentView}
         />
@@ -145,6 +158,14 @@ export default function App() {
             <FAQ />
             <CTA onOpenBooking={() => handleOpenBooking('Maharashtra Monsoon Trails', '₹13,499')} />
           </>
+        )}
+
+        {currentView === 'upcoming' && (
+          <DocumentBrochureView
+            onNavigateHome={() => handleNavigate('home')}
+            onOpenGlobalBooking={handleOpenBooking}
+            onOpenGlobalPayment={handleOpenPayment}
+          />
         )}
 
         {currentView === 'packages' && (
@@ -181,7 +202,10 @@ export default function App() {
         )}
 
         {currentView === 'help' && (
-          <HelpCenterView onOpenBooking={() => handleOpenBooking()} />
+          <HelpCenterView 
+            onOpenBooking={() => handleOpenBooking()} 
+            onOpenPaymentModal={handleOpenPayment}
+          />
         )}
 
         {(currentView === 'terms' || currentView === 'privacy' || currentView === 'cookies') && (
@@ -196,6 +220,7 @@ export default function App() {
 
       <Footer 
         onOpenBooking={handleOpenBooking} 
+        onOpenPayment={handleOpenPayment}
         onNavigate={handleNavigate}
       />
 
@@ -206,12 +231,23 @@ export default function App() {
         onOpenBooking={handleOpenBooking}
       />
 
-      {/* Global Interactive Modals */}
+      {/* Global Interactive Booking Modal */}
       <BookingModal
         isOpen={isBookingOpen}
         onClose={() => setIsBookingOpen(false)}
         initialDestination={selectedDestination}
         initialPrice={selectedPrice}
+      />
+
+      {/* Global UPI QR & Payment Modal */}
+      <PaymentQrModal
+        isOpen={isPaymentOpen}
+        onClose={() => {
+          setIsPaymentOpen(false);
+          if (window.location.hash === '#pay' || window.location.hash === '#payment' || window.location.hash === '#upi') {
+            window.history.pushState(null, '', window.location.pathname);
+          }
+        }}
       />
 
       <VideoModal

@@ -4,14 +4,15 @@ import { hqDetails } from '../data/destinationsData';
 
 interface NavbarProps {
   onOpenBooking: () => void;
-  onNavigate: (view: 'home' | 'packages' | 'blogs' | 'campsites' | 'story' | 'help' | 'terms' | 'privacy' | 'cookies' | 'gallery', hash?: string) => void;
+  onOpenPayment?: () => void;
+  onNavigate: (view: 'home' | 'packages' | 'upcoming' | 'blogs' | 'campsites' | 'story' | 'help' | 'terms' | 'privacy' | 'cookies' | 'gallery', hash?: string) => void;
   activeView: string;
 }
 
-export function Navbar({ onOpenBooking, onNavigate, activeView }: NavbarProps) {
+export function Navbar({ onOpenBooking, onOpenPayment, onNavigate, activeView }: NavbarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const handleNavClick = (view: 'home' | 'packages' | 'blogs' | 'campsites' | 'story' | 'help' | 'terms' | 'privacy' | 'cookies' | 'gallery', hash?: string) => {
+  const handleNavClick = (view: 'home' | 'packages' | 'upcoming' | 'blogs' | 'campsites' | 'story' | 'help' | 'terms' | 'privacy' | 'cookies' | 'gallery', hash?: string) => {
     onNavigate(view, hash);
     setMobileMenuOpen(false);
   };
@@ -38,12 +39,23 @@ export function Navbar({ onOpenBooking, onNavigate, activeView }: NavbarProps) {
         </button>
         
         {/* Center Nav Links (Desktop & Tablets in wide view) */}
-        <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2 items-center gap-6 xl:gap-8 text-[13px] font-medium tracking-wide">
+        <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2 items-center gap-5 xl:gap-7 text-[13px] font-medium tracking-wide">
           <button 
             onClick={() => handleNavClick('home')} 
             className={`transition-colors cursor-pointer ${activeView === 'home' ? 'text-white font-bold' : 'text-white/80 hover:text-white'}`}
           >
             Home
+          </button>
+          <button 
+            onClick={() => handleNavClick('upcoming')} 
+            className={`transition-colors cursor-pointer flex items-center gap-1.5 ${activeView === 'upcoming' ? 'text-emerald-400 font-bold' : 'text-white/80 hover:text-white'}`}
+            title="Dodham Yatra & Adventure Itinerary (2nd–8th Oct)"
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>Upcoming Itinerary</span>
+            <span className="hidden xl:inline-block bg-amber-500/20 text-amber-300 text-[10px] font-bold px-1.5 py-0.5 rounded border border-amber-500/30">
+              Dodham
+            </span>
           </button>
           <button 
             onClick={() => handleNavClick('packages')} 
@@ -92,7 +104,19 @@ export function Navbar({ onOpenBooking, onNavigate, activeView }: NavbarProps) {
         </div>
 
         {/* Right Header CTAs */}
-        <div className="hidden md:flex items-center gap-3">
+        <div className="hidden md:flex items-center gap-2.5">
+          {/* Quick UPI Pay Button */}
+          {onOpenPayment && (
+            <button
+              onClick={onOpenPayment}
+              className="flex items-center gap-1.5 bg-white/10 hover:bg-emerald-600/30 border border-white/20 hover:border-emerald-400/50 text-white px-3.5 py-2 rounded-full text-xs font-semibold tracking-wide transition-all backdrop-blur-sm cursor-pointer"
+              title="Scan & Pay with UPI QR"
+            >
+              <span className="text-emerald-400 font-mono text-[11px] font-bold">UPI</span>
+              <span>Pay / QR</span>
+            </button>
+          )}
+
           {/* Primary WhatsApp Book Now Button */}
           <a 
             href={whatsappUrl}
@@ -153,16 +177,10 @@ export function Navbar({ onOpenBooking, onNavigate, activeView }: NavbarProps) {
           </div>
 
           <div className="grid grid-cols-2 gap-2 text-[11px]">
-            <a 
-              href="https://www.instagram.com/trekandstay.com/" 
-              target="_blank" 
-              rel="noreferrer"
-              className="p-3 rounded-xl bg-gradient-to-tr from-purple-600/20 to-pink-500/20 border border-pink-500/30 text-left text-white flex items-center gap-2"
-            >
-              <Instagram className="w-4 h-4 text-pink-400" />
-              <span className="font-bold">Instagram</span>
-            </a>
-            <button onClick={() => handleNavClick('packages')} className="p-3 rounded-xl bg-emerald-600/30 border border-emerald-500/40 text-left text-emerald-300 font-bold hover:bg-emerald-600/40 flex items-center gap-2">
+            <button onClick={() => handleNavClick('upcoming')} className="p-3 rounded-xl bg-emerald-600/30 border border-emerald-500/40 text-left text-emerald-300 font-bold hover:bg-emerald-600/40 flex items-center gap-2">
+              <span>📅 Upcoming Itinerary</span>
+            </button>
+            <button onClick={() => handleNavClick('packages')} className="p-3 rounded-xl bg-white/5 text-left text-white hover:bg-white/10 flex items-center gap-2">
               <span>🏔️ All Packages</span>
             </button>
             <button onClick={() => handleNavClick('campsites')} className="p-3 rounded-xl bg-white/5 text-left text-white hover:bg-white/10 flex items-center gap-2">
@@ -175,6 +193,15 @@ export function Navbar({ onOpenBooking, onNavigate, activeView }: NavbarProps) {
               <ImageIcon className="w-4 h-4 text-emerald-400" />
               <span>Gallery</span>
             </button>
+            <a 
+              href="https://www.instagram.com/trekandstay.com/" 
+              target="_blank" 
+              rel="noreferrer"
+              className="p-3 rounded-xl bg-gradient-to-tr from-purple-600/20 to-pink-500/20 border border-pink-500/30 text-left text-white flex items-center gap-2"
+            >
+              <Instagram className="w-4 h-4 text-pink-400" />
+              <span className="font-bold">Instagram</span>
+            </a>
             <button onClick={() => handleNavClick('story')} className="p-3 rounded-xl bg-white/5 text-left text-white hover:bg-white/10 flex items-center gap-2">
               <span>📖 Our Story</span>
             </button>
@@ -207,6 +234,20 @@ export function Navbar({ onOpenBooking, onNavigate, activeView }: NavbarProps) {
               <span>Explore Dates & Custom Batches</span>
               <ArrowUpRight className="w-4 h-4" />
             </button>
+
+            {/* Quick Mobile UPI QR Payment Button */}
+            {onOpenPayment && (
+              <button 
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onOpenPayment();
+                }}
+                className="w-full flex items-center justify-center gap-2 bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 py-2.5 rounded-full text-xs font-bold shadow-xs cursor-pointer"
+              >
+                <span className="text-emerald-400 font-mono text-[11px] font-bold">UPI</span>
+                <span>Scan & Pay Official QR Code</span>
+              </button>
+            )}
           </div>
         </div>
       )}

@@ -105,7 +105,19 @@ export function PolicyView({ initialTab = 'terms', onOpenBooking, onTabChange }:
             </div>
 
             <div>
-              <h3 className="text-base font-bold text-slate-900 mb-2">3. Group Discounts & Promotional Rules</h3>
+              <h3 className="text-base font-bold text-slate-900 mb-2">3. Payment Verification & Authorized UPI Channels</h3>
+              <p className="mb-2">
+                To guarantee trekker payment protection and prevent unauthorized third-party solicitation:
+              </p>
+              <ul className="list-disc pl-5 space-y-1.5 text-slate-700">
+                <li><strong>Official Verified Payee:</strong> All electronic advance and booking payments are routed to authorized coordinator <strong>Ganapathi Bhat</strong> via official UPI ID <code>ganapathibhat5@ybl</code> (or secondary: <code>ganapathibhat5@okhdfcbank</code>) on Canara Bank (A/C: ****2821).</li>
+                <li><strong>Receipt Issuance:</strong> Payment transfers should be confirmed by sharing the 12-digit UPI UTR / reference number or screenshot with the Trek & Stay WhatsApp desk at <strong>+91 99029 37730</strong> for immediate slot locking and official PDF/WhatsApp invoice dispatch.</li>
+                <li><strong>Fraud Protection:</strong> Trek & Stay will never ask you to transfer funds to unverified personal numbers or unauthorized payment gateways not listed on our official website.</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-base font-bold text-slate-900 mb-2">4. Group Discounts & Promotional Rules</h3>
               <p>
                 Our group discount offers (₹500 off on 3+ trekkers; 6 bookings unlocking 1 free slot on select long multi-day trails) apply to standard batch rates and cannot be combined with unverified coupons.
               </p>

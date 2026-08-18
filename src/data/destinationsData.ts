@@ -754,6 +754,16 @@ export const hqDetails = {
   instagram: '@trek_and_stay',
   instagramUrl: 'https://instagram.com/trek_and_stay',
   whatsappBookingUrl: 'https://wa.me/919902937730?text=I%20would%20like%20to%20book%20my%20stay%20with%20trek%20and%20stay',
+  paymentDetails: {
+    payeeName: 'Ganapathi Bhat',
+    primaryUpiId: 'ganapathibhat5@ybl',
+    secondaryUpiId: 'ganapathibhat5@okhdfcbank',
+    bankName: 'Canara Bank',
+    accountSuffix: '2821',
+    upiDeepLink: 'upi://pay?pa=ganapathibhat5@ybl&pn=Ganapathi%20Bhat&cu=INR&tn=Trek%20and%20Stay%20Booking',
+    supportedApps: ['Google Pay', 'PhonePe', 'Paytm', 'BHIM UPI', 'Cred', 'Amazon Pay', 'Any Banking App'],
+    whatsappConfirmationNumber: '+91 99029 37730'
+  },
   activeCampsites: [
     {
       name: 'Trek and Stay Wilderness & Kodachadri Base',
