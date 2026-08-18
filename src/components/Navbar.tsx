@@ -105,6 +105,23 @@ export function Navbar({ onOpenBooking, onOpenPayment, onNavigate, activeView }:
 
         {/* Right Header CTAs */}
         <div className="hidden md:flex items-center gap-2.5">
+          {/* Prominent Upcoming Itinerary Action Button */}
+          <button
+            onClick={() => handleNavClick('upcoming')}
+            className={`flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-bold tracking-wide transition-all shadow-md cursor-pointer border ${
+              activeView === 'upcoming'
+                ? 'bg-amber-500 text-slate-950 border-amber-300 ring-2 ring-amber-400/50'
+                : 'bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-white border-amber-400/40 hover:shadow-amber-500/25'
+            }`}
+            title="View Dodham Yatra & Adventure Special (2nd–8th Oct)"
+          >
+            <span className="w-2 h-2 rounded-full bg-white animate-pulse"></span>
+            <span>Upcoming Itinerary</span>
+            <span className="bg-amber-950/40 text-amber-200 text-[10px] font-extrabold px-1.5 py-0.2 rounded-full hidden xl:inline">
+              Oct 2-8
+            </span>
+          </button>
+
           {/* Quick UPI Pay Button */}
           {onOpenPayment && (
             <button
@@ -122,7 +139,7 @@ export function Navbar({ onOpenBooking, onOpenPayment, onNavigate, activeView }:
             href={whatsappUrl}
             target="_blank"
             rel="noreferrer"
-            className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white px-5 py-2.5 rounded-full text-xs font-bold tracking-wide transition-all shadow-md active:scale-95 group"
+            className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded-full text-xs font-bold tracking-wide transition-all shadow-md active:scale-95 group"
             title="Book Now on WhatsApp"
           >
             <MessageCircle className="w-4 h-4 fill-white text-emerald-600" />
@@ -132,24 +149,37 @@ export function Navbar({ onOpenBooking, onOpenPayment, onNavigate, activeView }:
           {/* Secondary Batch Scheduler Button */}
           <button 
             onClick={onOpenBooking}
-            className="flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/40 px-4 py-2.5 rounded-full text-xs font-semibold tracking-wide transition-all backdrop-blur-sm group cursor-pointer"
+            className="flex items-center gap-1.5 bg-white/10 hover:bg-white/20 border border-white/40 px-3.5 py-2 rounded-full text-xs font-semibold tracking-wide transition-all backdrop-blur-sm group cursor-pointer"
           >
-            <span>Batch Calendar</span>
+            <span>Batches</span>
             <ArrowUpRight className="w-3.5 h-3.5 text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
           </button>
         </div>
 
         {/* Mobile & Tablet Toggle */}
         <div className="flex items-center gap-2 lg:hidden">
+          {/* Quick Mobile Upcoming Button */}
+          <button
+            onClick={() => handleNavClick('upcoming')}
+            className={`flex items-center gap-1 px-3 py-1.5 rounded-full text-[11px] font-bold shadow-md cursor-pointer border ${
+              activeView === 'upcoming'
+                ? 'bg-amber-500 text-slate-950 border-amber-300'
+                : 'bg-amber-600 text-white border-amber-400/50'
+            }`}
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
+            <span>Itinerary</span>
+          </button>
+
           {/* Compact Mobile Book Now */}
           <a
             href={whatsappUrl}
             target="_blank"
             rel="noreferrer"
-            className="flex items-center gap-1.5 bg-emerald-600 text-white px-3.5 py-1.5 rounded-full text-[11px] font-bold shadow-md active:scale-95 sm:hidden"
+            className="flex items-center gap-1.5 bg-emerald-600 text-white px-3 py-1.5 rounded-full text-[11px] font-bold shadow-md active:scale-95 sm:hidden"
           >
             <MessageCircle className="w-3.5 h-3.5 fill-white text-emerald-600" />
-            <span>Book Now</span>
+            <span>Book</span>
           </a>
 
           <button 
