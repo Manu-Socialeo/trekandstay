@@ -19,7 +19,7 @@ export const phase2Blogs: BlogPostDetail[] = [
     category: 'Western Ghats',
     tags: ['Vajrai Waterfall', 'Kaas Plateau', 'Valley of Flowers', 'Amboli Rainforest', 'Thoseghar', 'Marleshwar', 'Biodiversity', 'Bioluminescence'],
     metaDescription: 'Complete guide to South Maharashtra gems: 853ft Vajrai Waterfall, UNESCO Kaas Plateau flower bloom dates, Thoseghar gorge, Amboli bioluminescent night trails, and Marleshwar cave waterfall.',
-    image: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=2070&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?q=80&w=2070&auto=format&fit=crop',
     gallery: [
       'https://images.unsplash.com/photo-1589182373726-e4f658ab50f0?q=80&w=2070&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=2070&auto=format&fit=crop'

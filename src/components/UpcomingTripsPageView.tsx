@@ -307,7 +307,7 @@ export function UpcomingTripsPageView({
               <Calendar className="w-3.5 h-3.5" />
               <span>Upcoming Batches Schedule 2026</span>
             </div>
-            <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900 mb-2">
+            <h2 className="text-2xl sm:text-3xl font-display font-extrabold tracking-tight text-slate-900 mb-2">
               All Scheduled Departure Batches
             </h2>
             <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">
@@ -348,7 +348,7 @@ export function UpcomingTripsPageView({
               return (
                 <div 
                   key={trip.id}
-                  className={`rounded-3xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between relative group bg-white border ${
+                  className={`rounded-3xl p-6 shadow-sm card-hover-lift flex flex-col justify-between relative group bg-white border ${
                     trip.isDodhamSpecial
                       ? 'border-amber-400 ring-2 ring-amber-400/20'
                       : 'border-slate-200 hover:border-slate-300'
@@ -379,7 +379,7 @@ export function UpcomingTripsPageView({
                     </div>
 
                     {/* Title */}
-                    <h3 className="font-extrabold text-slate-900 text-lg leading-snug mb-3 group-hover:text-emerald-600 transition-colors">
+                    <h3 className="font-display font-extrabold text-slate-900 text-lg leading-snug mb-3 group-hover:text-emerald-600 transition-colors">
                       {trip.title}
                     </h3>
 

@@ -26,14 +26,27 @@ export function Navbar({ onOpenBooking, onOpenPayment, onNavigate, activeView }:
         {/* Brand Logo */}
         <button 
           onClick={() => handleNavClick('home')} 
-          className="flex items-center gap-2 cursor-pointer group focus:outline-none shrink-0"
+          className="flex items-center gap-3 cursor-pointer group focus:outline-none shrink-0"
         >
-          <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
-            <Compass className="w-4 h-4 text-slate-900" />
+          <div className="w-10 h-10 rounded-full overflow-hidden ring-2 ring-emerald-500/50 shadow-md group-hover:scale-105 transition-transform bg-slate-900 flex items-center justify-center">
+            <img 
+              src="/images/logo.jpg" 
+              alt="Trek & Stay Official Logo" 
+              className="w-full h-full object-cover"
+              onError={(e) => {
+                // Fallback to compass icon if needed
+                (e.currentTarget as HTMLElement).style.display = 'none';
+              }}
+            />
           </div>
-          <span className="text-base sm:text-lg font-black tracking-tight text-white drop-shadow-sm leading-none whitespace-nowrap">
-            Trek & Stay
-          </span>
+          <div className="text-left">
+            <span className="text-base sm:text-lg font-heading font-black tracking-tight text-white drop-shadow-sm leading-none block">
+              Trek & Stay
+            </span>
+            <span className="text-[9px] font-extrabold uppercase tracking-[0.18em] text-emerald-400 block mt-0.5">
+              Adventure Travel
+            </span>
+          </div>
         </button>
         
         {/* Center Nav Links (Distributed Flex with proportional spacing) */}

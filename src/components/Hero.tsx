@@ -16,26 +16,25 @@ export function Hero({ onOpenBooking }: HeroProps) {
       {/* Background Image with layered mountain scenic view */}
       <div className="absolute inset-0 z-0">
         <motion.img 
-          initial={{ scale: 1.1, opacity: 0 }}
+          initial={{ scale: 1.08, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 1.5, ease: "easeOut" }}
-          src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=2070&auto=format&fit=crop" 
-          alt="Alps and snowy mountains" 
+          src="/images/hero-banner.jpg" 
+          alt="Lush green Western Ghats and Sahyadri misty peaks" 
           className="w-full h-full object-cover object-center"
-          referrerPolicy="no-referrer"
         />
-        {/* Layered gradients to reproduce sky lighting and bottom contrast */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-slate-950/90"></div>
-        <div className="absolute inset-x-0 bottom-0 h-64 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent"></div>
+        {/* Layered gradients for cinematic lighting and readable text */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-slate-950/95"></div>
+        <div className="absolute inset-x-0 bottom-0 h-80 bg-gradient-to-t from-slate-950 via-slate-950/85 to-transparent"></div>
       </div>
 
-      {/* Massive Display Title (TREK & STAY) */}
-      <div className="relative z-10 w-full flex justify-center items-center mt-6 md:mt-12 pointer-events-none select-none">
+      {/* Massive Display Title (TREK & STAY) - Scaled to fit viewport without cropping */}
+      <div className="relative z-10 w-full flex justify-center items-center mt-6 md:mt-10 pointer-events-none select-none px-4">
         <motion.h1 
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 0.95, y: 0 }}
           transition={{ duration: 1, delay: 0.3 }}
-          className="text-[13vw] md:text-[13vw] font-black text-white tracking-tight uppercase leading-none text-center drop-shadow-2xl whitespace-nowrap"
+          className="text-[8.5vw] sm:text-[9vw] md:text-[9.5vw] font-heading font-black text-white/95 tracking-tight uppercase leading-none text-center drop-shadow-[0_20px_50px_rgba(0,0,0,0.9)] max-w-full"
         >
           TREK & STAY
         </motion.h1>
@@ -51,11 +50,12 @@ export function Hero({ onOpenBooking }: HeroProps) {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="lg:col-span-5"
           >
-            <span className="inline-block text-xs font-bold uppercase tracking-widest text-emerald-400 mb-2">
-              Welcome to the Wilderness
-            </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-extrabold text-white leading-[1.15] tracking-tight">
-              Uncover Wild Trails &<br />Misty Sahyadri Peaks.
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-950/70 border border-emerald-500/30 backdrop-blur-md text-emerald-300 text-[11px] font-bold tracking-wide mb-3">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span>14 Batches Open — Karnataka & Sahyadri Monsoon</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-[46px] font-display font-extrabold text-white leading-[1.15] tracking-tight">
+              Uncover Wild Trails &<br /><span className="text-gradient-emerald">Misty Sahyadri Peaks.</span>
             </h2>
           </motion.div>
 

@@ -9,26 +9,37 @@ export function CTA({ onOpenBooking }: CTAProps) {
     <section className="py-20 md:py-28 px-6 md:px-12 bg-white max-w-7xl mx-auto">
       <div className="bg-slate-50 border border-slate-100 rounded-[40px] p-8 md:p-16 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center shadow-xs">
         <div>
-          <span className="inline-block bg-white border border-slate-200 rounded-full px-4 py-1 text-[11px] font-semibold text-slate-500 mb-5 tracking-wide shadow-2xs">
-            Join Upcoming Batches
-          </span>
-          <h2 className="text-3xl md:text-4xl lg:text-[44px] font-bold text-slate-900 leading-[1.18] tracking-tight mb-5">
-            Plan Your Next<br />Wilderness Trek Today
+          <div className="flex items-center gap-2 mb-4">
+            <span className="inline-block bg-emerald-100 border border-emerald-300 rounded-full px-4 py-1 text-[11px] font-extrabold text-emerald-800 tracking-wide shadow-2xs">
+              ⚡ Limited Monsoon Batches Open
+            </span>
+          </div>
+          <h2 className="text-3xl md:text-4xl lg:text-[44px] font-display font-black text-slate-900 leading-[1.18] tracking-tight mb-4">
+            Plan Your Next<br /><span className="text-gradient-emerald">Wilderness Trek Today</span>
           </h2>
-          <p className="text-slate-500 text-xs md:text-sm leading-relaxed mb-8 max-w-md">
-            Embark on a journey through roaring waterfalls, misty Sahyadri ridges, and majestic forts. Early bird discounts and group offers are now live for upcoming batches.
+          <p className="text-slate-600 text-xs md:text-sm leading-relaxed mb-6 max-w-md">
+            Embark on a journey through roaring waterfalls, misty Sahyadri ridges, and majestic forts. Group discounts (Flat ₹500 off on 3+ trekkers) and corporate departure slots are now open.
           </p>
           
-          <div className="flex items-center">
+          <div className="flex flex-wrap items-center gap-3">
             <button 
               onClick={onOpenBooking}
-              className="flex items-center gap-3.5 bg-transparent border border-slate-900 hover:bg-slate-900 hover:text-white pl-5 pr-1.5 py-1.5 rounded-full text-xs font-bold text-slate-900 transition-all group active:scale-95"
+              className="flex items-center gap-3 bg-emerald-600 hover:bg-emerald-500 text-white pl-5 pr-2 py-2 rounded-full text-xs font-bold transition-all shadow-md active:scale-95 cursor-pointer"
             >
               <span>Book Your Slot</span>
-              <div className="w-8 h-8 rounded-full bg-slate-900 group-hover:bg-white flex items-center justify-center group-hover:scale-105 transition-all shadow-sm">
-                <ArrowUpRight className="w-3.5 h-3.5 text-white group-hover:text-slate-900 transition-colors" />
+              <div className="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center transition-all shadow-sm">
+                <ArrowUpRight className="w-3.5 h-3.5 text-white" />
               </div>
             </button>
+
+            <a
+              href="https://wa.me/919902937730?text=Hi%20Trek%20%26%20Stay%20team%2C%20I%20would%20like%20to%20inquire%20about%20upcoming%20batches"
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center gap-2 bg-slate-900 hover:bg-black text-white px-5 py-3 rounded-full text-xs font-bold transition-all shadow-sm active:scale-95 cursor-pointer"
+            >
+              <span>💬 WhatsApp Inquiries</span>
+            </a>
           </div>
         </div>
 

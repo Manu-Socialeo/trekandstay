@@ -120,7 +120,7 @@ export const phase3Blogs: BlogPostDetail[] = [
     category: 'Himalayan Yatra',
     tags: ['Jyotirlinga Tour', 'Bhimashankar', 'Trimbakeshwar', 'Grishneshwar', 'Shirdi Sai', 'Ellora Caves', 'Devbhoomi', 'Devrai Sacred Groves'],
     metaDescription: 'Complete spiritual and cultural travel guide covering Maharashtra 4-Dham pilgrimage: Bhimashankar sacred groves, Trimbakeshwar Godavari snan, Ellora Kailasa temple monolithic art, and Shirdi Sai Sansthan VIP darshan.',
-    image: 'https://images.unsplash.com/photo-1583733113057-04021287042a?q=80&w=2073&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?q=80&w=2070&auto=format&fit=crop',
     gallery: [
       'https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=2070&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?q=80&w=2070&auto=format&fit=crop'

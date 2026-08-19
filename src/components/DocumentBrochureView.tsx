@@ -974,48 +974,38 @@ export const DocumentBrochureView: React.FC<DocumentBrochureViewProps> = ({
               </div>
             </div>
 
-            {/* Accommodations Grid */}
-            <div>
-              <h3 className={`text-sm font-bold uppercase tracking-wider mb-3 ${
-                docTheme === 'light' ? 'text-stone-900' : 'text-stone-100'
-              }`}>
-                STAYS & HIGH-ALTITUDE CAMPS
-              </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
-                {ACCOMMODATIONS.map((stay, idx) => (
-                  <div
-                    key={idx}
-                    className={`rounded-2xl border overflow-hidden flex flex-col transition hover:shadow-md ${
-                      docTheme === 'light' ? 'bg-stone-50 border-stone-200 shadow-sm' : 'bg-stone-800 border-stone-700 shadow-sm'
-                    }`}
-                  >
-                    <div className="relative h-32 w-full bg-stone-900 overflow-hidden">
-                      <img
-                        src={stay.image}
-                        alt={stay.name}
-                        crossOrigin="anonymous"
-                        referrerPolicy="no-referrer"
-                        className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-2.5">
-                        <span className="text-[11px] font-bold text-amber-400">{stay.location}</span>
-                      </div>
-                    </div>
-                    <div className="p-3.5 flex-1 flex flex-col justify-between space-y-2">
-                      <div>
-                        <div className={`font-bold text-xs sm:text-sm ${docTheme === 'light' ? 'text-stone-900' : 'text-white'}`}>
-                          {stay.name}
-                        </div>
-                        <div className="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400 mt-0.5">
-                          {stay.type}
-                        </div>
-                        <div className="text-xs text-stone-500 dark:text-stone-400 mt-1.5 line-clamp-3 leading-relaxed">
-                          {stay.description}
-                        </div>
-                      </div>
-                    </div>
+            {/* High-Altitude Safety & Medical Support Standards */}
+            <div className={`p-4 rounded-xl border ${
+              docTheme === 'light' ? 'bg-amber-50/60 border-amber-200' : 'bg-amber-950/20 border-amber-800/60'
+            }`}>
+              <div className="flex items-center gap-2 mb-2">
+                <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                <h3 className="font-bold text-xs uppercase tracking-wider text-stone-900 dark:text-stone-100">
+                  HIGH-ALTITUDE SAFETY, MEDICAL & LOGISTICS STANDARDS
+                </h3>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs text-stone-600 dark:text-stone-300">
+                <div className="flex items-start gap-2">
+                  <span className="text-emerald-600 font-bold">✓</span>
+                  <div>
+                    <strong className="block text-stone-900 dark:text-stone-100">Portable Oxygen & Oximeters:</strong>
+                    <span>Continuous SPO2 health checks at Guptkashi & Kedarnath top.</span>
                   </div>
-                ))}
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="text-emerald-600 font-bold">✓</span>
+                  <div>
+                    <strong className="block text-stone-900 dark:text-stone-100">Biometric Registration:</strong>
+                    <span>End-to-end Uttarakhand Yatra pass & biometric clearance included.</span>
+                  </div>
+                </div>
+                <div className="flex items-start gap-2">
+                  <span className="text-emerald-600 font-bold">✓</span>
+                  <div>
+                    <strong className="block text-stone-900 dark:text-stone-100">Certified Captains:</strong>
+                    <span>Licensed IMF/UIAA mountain leaders with satellite walkie-talkie support.</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

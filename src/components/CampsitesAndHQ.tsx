@@ -184,15 +184,22 @@ export function CampsitesAndHQ() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {hqDetails.activeCampsites.map((camp, i) => (
-              <div key={i} className="bg-white border border-slate-200 rounded-2xl p-5 shadow-2xs hover:shadow-md transition-shadow">
-                <div className="w-9 h-9 rounded-xl bg-slate-100 flex items-center justify-center text-slate-900 mb-3">
-                  <Tent className="w-4 h-4" />
+              <div key={i} className="bg-white border border-slate-200/80 rounded-[24px] p-6 shadow-xs hover:shadow-md hover:border-emerald-300 transition-all flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="w-10 h-10 rounded-2xl bg-emerald-50 flex items-center justify-center text-emerald-700">
+                      <Tent className="w-5 h-5" />
+                    </div>
+                    <span className="text-[10px] font-bold text-emerald-800 bg-emerald-100/70 px-2.5 py-0.5 rounded-full">
+                      Verified Base
+                    </span>
+                  </div>
+                  <h4 className="font-display font-extrabold text-slate-900 text-sm mb-1">{camp.name}</h4>
+                  <span className="text-[11px] font-bold text-emerald-700 block mb-2.5">📍 {camp.region}</span>
+                  <p className="text-xs text-slate-600 leading-relaxed">{camp.features}</p>
                 </div>
-                <h4 className="font-bold text-slate-900 text-xs sm:text-sm mb-1">{camp.name}</h4>
-                <span className="text-[10px] font-semibold text-emerald-700 block mb-2">{camp.region}</span>
-                <p className="text-[11px] text-slate-500 leading-relaxed">{camp.features}</p>
               </div>
             ))}
           </div>

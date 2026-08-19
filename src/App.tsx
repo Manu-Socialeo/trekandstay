@@ -153,8 +153,13 @@ export default function App() {
             />
             <About onOpenBooking={() => handleOpenBooking('Maharashtra Monsoon Trails', '₹13,499')} />
             <Stats />
+            <CampsitesAndHQ />
             <VideoTour onOpenVideo={() => setIsVideoOpen(true)} />
             <Testimonials />
+            <Blog 
+              onSelectPost={setSelectedBlogPost} 
+              onNavigateToBlogsPage={() => handleNavigate('blogs')} 
+            />
             <FAQ />
             <CTA onOpenBooking={() => handleOpenBooking('Maharashtra Monsoon Trails', '₹13,499')} />
           </>
@@ -224,6 +229,35 @@ export default function App() {
         onOpenPayment={handleOpenPayment}
         onNavigate={handleNavigate}
       />
+
+      {/* Floating Mobile Quick Action Bar */}
+      <div className="md:hidden fixed bottom-4 inset-x-4 z-40 bg-slate-950/95 backdrop-blur-xl border border-white/15 rounded-2xl p-2.5 flex items-center justify-between gap-2 shadow-2xl">
+        <a
+          href="https://wa.me/919902937730?text=I%20would%20like%20to%20book%20my%20stay%20with%20trek%20and%20stay"
+          target="_blank"
+          rel="noreferrer"
+          className="flex-1 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs py-2.5 px-3 rounded-xl flex items-center justify-center gap-1.5 shadow-md active:scale-95 transition-all"
+        >
+          <span>💬 WhatsApp</span>
+        </a>
+
+        <button
+          onClick={() => handleOpenBooking()}
+          className="flex-1 bg-white text-slate-950 hover:bg-emerald-400 font-extrabold text-xs py-2.5 px-3 rounded-xl flex items-center justify-center gap-1.5 shadow-md active:scale-95 transition-all cursor-pointer"
+        >
+          <span>🏕️ Book Trek</span>
+        </button>
+
+        {handleOpenPayment && (
+          <button
+            onClick={handleOpenPayment}
+            className="bg-slate-800 hover:bg-slate-700 text-emerald-400 font-mono font-bold text-xs py-2.5 px-3 rounded-xl flex items-center justify-center border border-white/10 cursor-pointer"
+            title="Scan UPI QR"
+          >
+            <span>UPI</span>
+          </button>
+        )}
+      </div>
 
       {/* Destination Story & Itinerary Deep-Dive Modal */}
       <DestinationDetailModal

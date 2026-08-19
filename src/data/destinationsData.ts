@@ -131,11 +131,11 @@ export const destinationsData: DestinationDetail[] = [
       amenities: ['Weatherproof waterproof dome tents', 'Clean mobile washrooms', 'Dining shamiana', 'High-powered solar lighting', 'Campfire ring', '24/7 First-Aid station'],
       description: 'Nestled between Arthur Lake tributaries and towering Sahyadri cliff walls, our camp features insulated bedding, organic locally sourced hot meals, and panoramic sunrise vistas.'
     },
-    image: 'https://images.unsplash.com/photo-1596245050071-705307593c7f?q=80&w=2070&auto=format&fit=crop', // Konkan Kada cliff view
+    image: 'https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd?q=80&w=2070&auto=format&fit=crop', // Konkan Kada cliff view
     gallery: [
       'https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=2070&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1589182373726-e4f658ab50f0?q=80&w=2070&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1626014303757-646c21425821?q=80&w=2070&auto=format&fit=crop'
+      'https://images.unsplash.com/photo-1518495973542-4542c06a5843?q=80&w=2070&auto=format&fit=crop'
     ],
     faq: [
       {
@@ -302,9 +302,9 @@ export const destinationsData: DestinationDetail[] = [
       amenities: ['Riverside swiss cottages & luxury dome tents', 'Hot shower facilities', 'Barbecue pits', 'Kayaking gear'],
       description: 'Lush green riverside sanctuary offering serene river sounds and immediate access to monsoon trailheads.'
     },
-    image: 'https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?q=80&w=2070&auto=format&fit=crop', // Deep monsoon forest and waterfall
+    image: 'https://images.unsplash.com/photo-1518495973542-4542c06a5843?q=80&w=2070&auto=format&fit=crop', // Deep monsoon forest and waterfall pool
     gallery: [
-      'https://images.unsplash.com/photo-1517824806704-9040b037703b?q=80&w=2070&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd?q=80&w=2070&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1533240332313-0db49b459ad6?q=80&w=2070&auto=format&fit=crop'
     ],
     faq: [
@@ -476,10 +476,10 @@ export const destinationsData: DestinationDetail[] = [
       amenities: ['Deluxe AC rooms with attached bath', 'Pure vegetarian dining hall', 'Wheelchair accessibility', 'Elevator access'],
       description: 'Peaceful, immaculate hotels located within 500 meters of temple premises for convenient early-morning aarti access.'
     },
-    image: 'https://images.unsplash.com/photo-1624396115568-55b89052b694?q=80&w=2070&auto=format&fit=crop', // Iconic Trimbakeshwar / Temple style view
+    image: 'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?q=80&w=2070&auto=format&fit=crop', // Historic sacred temple heritage
     gallery: [
-      'https://images.unsplash.com/photo-1583733113057-04021287042a?q=80&w=2073&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=2070&auto=format&fit=crop'
+      'https://images.unsplash.com/photo-1589308454676-4658133529a1?q=80&w=2070&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd?q=80&w=2070&auto=format&fit=crop'
     ],
     faq: [
       {
@@ -587,10 +587,10 @@ export const destinationsData: DestinationDetail[] = [
       amenities: ['Heated rooms / thermal bedding', 'Pure satvik dining', 'Oxygen cylinder support', 'Instant hot water'],
       description: 'Clean, reliable and fully winterized mountain lodges ensuring safety and warmth at high Himalayan altitudes.'
     },
-    image: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=2070&auto=format&fit=crop', // Majestic Himalayan peak/temple backdrop
+    image: 'https://images.unsplash.com/photo-1589308454676-4658133529a1?q=80&w=2070&auto=format&fit=crop', // Majestic Himalayan peak/temple backdrop
     gallery: [
-      'https://images.unsplash.com/photo-1626014303757-646c21425821?q=80&w=2070&auto=format&fit=crop',
-      'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=2070&auto=format&fit=crop'
+      'https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd?q=80&w=2070&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=2070&auto=format&fit=crop'
     ],
     faq: [
       {

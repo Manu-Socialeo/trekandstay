@@ -19,7 +19,7 @@ export const phase1Blogs: BlogPostDetail[] = [
     category: 'Sahyadri Trails',
     tags: ['Harishchandragad', 'Konkan Kada', 'Monsoon Trekking', 'Khireshwar', 'Leave No Trace', 'Sahyadri Heritage', 'Kedareshwar Cave', 'Tolarkhind Pass'],
     metaDescription: 'Complete master guide to Harishchandragad trek via Khireshwar & Paachnai: Konkan Kada cliff, Kedareshwar water cave, Brocken Spectre phenomenon, village homestays, elevation stats, and Leave No Trace ethics.',
-    image: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=2070&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd?q=80&w=2070&auto=format&fit=crop',
     gallery: [
       'https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?q=80&w=2070&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1589182373726-e4f658ab50f0?q=80&w=2070&auto=format&fit=crop',
@@ -237,7 +237,7 @@ export const phase1Blogs: BlogPostDetail[] = [
     category: 'Sahyadri Trails',
     tags: ['Devkund Waterfall', 'Tamhini Ghat', 'Nanemachi', 'Raigad Fort', 'Blue Lagoon', 'Rainforest Trek', 'Wilderness Medic'],
     metaDescription: 'Complete guide to Devkund Waterfall trek in Tamhini Ghat, lifejacket safety protocols, Nanemachi curtain falls, Raigad Fort history, river crossings, and rainforest conservation.',
-    image: 'https://images.unsplash.com/photo-1517824806704-9040b037703b?q=80&w=2070&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1518495973542-4542c06a5843?q=80&w=2070&auto=format&fit=crop',
     gallery: [
       'https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=2070&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?q=80&w=2070&auto=format&fit=crop'
@@ -338,7 +338,7 @@ export const phase1Blogs: BlogPostDetail[] = [
     category: 'Adventure Sports',
     tags: ['Harihar Fort', 'Waterfall Rappelling', 'Shitkada', 'Rock Climbing', 'Technical Trekking', 'Igatpuri', 'Basalt Stairs'],
     metaDescription: 'Complete masterclass on tackling Harihar Fort 80-degree vertical rock steps and 300ft Shitkada waterfall rappelling: gear certification, UIAA safety, footwork technique, and Igatpuri logistics.',
-    image: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=2070&auto=format&fit=crop',
+    image: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=2070&auto=format&fit=crop',
     gallery: [
       'https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?q=80&w=2070&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1544551763-46a013bb70d5?q=80&w=2070&auto=format&fit=crop'

@@ -20,16 +20,20 @@ export function Footer({ onOpenBooking, onOpenPayment, onNavigate }: FooterProps
           <div className="flex flex-col gap-4">
             <button 
               onClick={() => onNavigate('home')} 
-              className="flex items-center gap-2 group cursor-pointer inline-flex focus:outline-none"
+              className="flex items-center gap-3 group cursor-pointer inline-flex focus:outline-none"
             >
-              <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
-                <Compass className="w-5 h-5 text-slate-900" />
+              <div className="w-10 h-10 rounded-full overflow-hidden ring-2 ring-emerald-500/50 shadow-md group-hover:scale-105 transition-transform bg-slate-900 flex items-center justify-center shrink-0">
+                <img 
+                  src="/images/logo.jpg" 
+                  alt="Trek & Stay Official Logo" 
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div className="text-left">
                 <span className="text-lg font-black tracking-tight text-white block leading-none">
                   Trek & Stay
                 </span>
-                <span className="text-emerald-400 text-[10px] font-black uppercase tracking-[0.2em] mt-1 block">Welcome to the Wilderness</span>
+                <span className="text-emerald-400 text-[10px] font-black uppercase tracking-[0.18em] mt-1 block">Welcome to the Wilderness</span>
               </div>
             </button>
             <p className="text-[11px] text-slate-500 leading-relaxed font-medium">

@@ -298,6 +298,11 @@ export async function exportBrochureToPdf(
     doc.text('• Mountain Tempo + 6N Hotels + 2-Meals/Day + Rafting', m + 8, p1PkgY + 40);
     doc.text('• Token Advance: ₹5,000 to lock seat', m + 8, p1PkgY + 46);
 
+    // Clickable link for Delhi card on Page 1
+    doc.link(delhiX, p1PkgY + 12, p1CardW, 40, {
+      url: 'https://wa.me/919902937730?text=Hi%20Trek%20%26%20Stay%20team%2C%20I%20want%20to%20reserve%20the%20Delhi%20Package%20(%E2%82%B917%2C500)%20for%20Dodham%20Yatra.'
+    });
+
     // Bangalore Package Card
     const blrX = m + 4 + p1CardW + 4;
     doc.setFillColor(255, 255, 255);
@@ -321,6 +326,11 @@ export async function exportBrochureToPdf(
     doc.text('• Bangalore ↔ Delhi Return Flight Tickets Included', blrX + 4, p1PkgY + 34);
     doc.text('• 3A Train + Mountain Tempo + Stays + Meals + Rafting', blrX + 4, p1PkgY + 40);
     doc.text('• Token Advance: ₹5,000 to lock seat', blrX + 4, p1PkgY + 46);
+
+    // Clickable link for Bangalore card on Page 1
+    doc.link(blrX, p1PkgY + 12, p1CardW, 40, {
+      url: 'https://wa.me/919902937730?text=Hi%20Trek%20%26%20Stay%20team%2C%20I%20want%20to%20reserve%20the%20Bangalore%20Package%20(%E2%82%B934%2C000)%20for%20Dodham%20Yatra.'
+    });
 
     // Bottom Help Ribbon
     doc.setTextColor(254, 243, 199);
@@ -438,6 +448,11 @@ export async function exportBrochureToPdf(
       const capLines = doc.splitTextToSize(day.imageCaption || day.dayTitle, photoW - 4);
       doc.text(capLines, photoX + 2, p2Y + 4 + photoH - 8);
 
+      // Active Google Maps Link for the entire day card
+      if (day.mapUrl) {
+        doc.link(m, p2Y, cw, cardH, { url: day.mapUrl });
+      }
+
       p2Y += cardH + 3.5;
     });
 
@@ -548,13 +563,18 @@ export async function exportBrochureToPdf(
       const capLines = doc.splitTextToSize(day.imageCaption || day.dayTitle, photoW - 4);
       doc.text(capLines, photoX + 2, p3Y + 4 + photoH - 8);
 
+      // Active Google Maps Link for the entire day card
+      if (day.mapUrl) {
+        doc.link(m, p3Y, cw, cardH, { url: day.mapUrl });
+      }
+
       p3Y += cardH + 3.5;
     });
 
     drawFooter(3);
 
     /* =========================================================================
-       PAGE 4: INCLUSIONS, EXCLUSIONS, 7 PICKUP HUBS & 4 STAYS
+       PAGE 4: INCLUSIONS, EXCLUSIONS, 7 PICKUP HUBS & SAFETY PROTOCOLS
     ========================================================================= */
     onProgress?.('Generating Page 4 of 5: Inclusions & Active Map Hubs...');
     await new Promise((r) => setTimeout(r, 40));
@@ -564,7 +584,7 @@ export async function exportBrochureToPdf(
 
     // Dual Column: Inclusions & Exclusions
     const dualColW = (cw - 4) / 2;
-    const incBoxH = 76;
+    const incBoxH = 82;
     const dualY = 16;
 
     // Inclusions Box
@@ -575,22 +595,22 @@ export async function exportBrochureToPdf(
 
     doc.setTextColor(...cEmerald);
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(8);
+    doc.setFontSize(8.5);
     doc.text('✓   PACKAGE INCLUSIONS', m + 5, dualY + 6.5);
 
     let incY = dualY + 12;
     INCLUSIONS.forEach((item) => {
       doc.setTextColor(...cEmerald);
       doc.setFont('helvetica', 'bold');
-      doc.setFontSize(6.5);
+      doc.setFontSize(7);
       doc.text('✓', m + 5, incY);
 
       doc.setTextColor(...cTextMain);
       doc.setFont('helvetica', 'normal');
-      doc.setFontSize(6.2);
+      doc.setFontSize(6.4);
       const split = doc.splitTextToSize(item, dualColW - 14);
       doc.text(split, m + 9, incY);
-      incY += split.length * 3.1 + 2.2;
+      incY += split.length * 3.2 + 2.2;
     });
 
     // Exclusions Box
@@ -602,37 +622,37 @@ export async function exportBrochureToPdf(
 
     doc.setTextColor(...cRed);
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(8);
+    doc.setFontSize(8.5);
     doc.text('✗   PACKAGE EXCLUSIONS', excX + 5, dualY + 6.5);
 
     let excY = dualY + 12;
     EXCLUSIONS.forEach((item) => {
       doc.setTextColor(...cRed);
       doc.setFont('helvetica', 'bold');
-      doc.setFontSize(6.5);
+      doc.setFontSize(7);
       doc.text('✗', excX + 5, excY);
 
       doc.setTextColor(...cTextMain);
       doc.setFont('helvetica', 'normal');
-      doc.setFontSize(6.2);
+      doc.setFontSize(6.4);
       const split = doc.splitTextToSize(item, dualColW - 14);
       doc.text(split, excX + 9, excY);
-      excY += split.length * 3.1 + 2.2;
+      excY += split.length * 3.2 + 2.2;
     });
 
     // Section 2: Reporting & Pick Up Hubs (With 7 Active Clickable Google Maps Buttons)
-    const hubSecY = dualY + incBoxH + 4;
+    const hubSecY = dualY + incBoxH + 5;
     doc.setTextColor(...cTextMain);
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(8.5);
-    doc.text('REPORTING & PICK UP HUBS', m, hubSecY + 4);
+    doc.text('REPORTING & PICK UP HUBS (CLICK ANY TO OPEN GOOGLE MAPS)', m, hubSecY + 4);
 
-    doc.setTextColor(...cTextMuted);
+    doc.setTextColor(...cEmerald);
     doc.setFontSize(7);
-    doc.text('NAVIGATION', pw - m, hubSecY + 4, { align: 'right' });
+    doc.text('📍 LIVE GOOGLE MAPS ACTIVE', pw - m, hubSecY + 4, { align: 'right' });
 
     let hubY = hubSecY + 7;
-    const hubH = 9;
+    const hubH = 9.5;
 
     PICKUP_POINTS.forEach((hub) => {
       doc.setFillColor(248, 250, 252);
@@ -643,17 +663,17 @@ export async function exportBrochureToPdf(
       // Location Name & Timing
       doc.setTextColor(...cTextMain);
       doc.setFont('helvetica', 'bold');
-      doc.setFontSize(6.8);
+      doc.setFontSize(7);
       doc.text(hub.name, m + 4, hubY + 4);
 
       doc.setTextColor(...cTextMuted);
       doc.setFont('helvetica', 'normal');
-      doc.setFontSize(5.8);
+      doc.setFontSize(6);
       doc.text(`${hub.reportingTime}  •  ${hub.address}`, m + 4, hubY + 7.5);
 
       // Active Green "Google Map ↗" Button
-      const btnW = 24;
-      const btnH = 5.5;
+      const btnW = 26;
+      const btnH = 6;
       const btnX = pw - m - btnW - 3;
       const btnY = hubY + 1.8;
 
@@ -662,69 +682,70 @@ export async function exportBrochureToPdf(
 
       doc.setTextColor(255, 255, 255);
       doc.setFont('helvetica', 'bold');
-      doc.setFontSize(6);
-      doc.text('Google Map ↗', btnX + btnW / 2, btnY + 3.8, { align: 'center' });
+      doc.setFontSize(6.2);
+      doc.text('Google Map ↗', btnX + btnW / 2, btnY + 4.2, { align: 'center' });
 
-      // Clickable PDF Link
-      doc.link(btnX, btnY, btnW, btnH, { url: hub.googleMapUrl });
+      // Clickable PDF Link covering both the button and entire row
+      doc.link(m, hubY, cw, hubH, { url: hub.googleMapUrl });
 
-      hubY += hubH + 1.8;
+      hubY += hubH + 2;
     });
 
-    // Section 3: Stays & High-Altitude Camps (4 Cards with Photos)
-    const staySecY = hubY + 3;
+    // Section 3: High-Altitude Safety, Medical & Support Standards
+    const safetySecY = hubY + 4;
+    const safetyH = 50;
+
+    doc.setFillColor(...cAmberLight);
+    doc.roundedRect(m, safetySecY, cw, safetyH, 1.5, 1.5, 'F');
+    doc.setDrawColor(...cAmber);
+    doc.roundedRect(m, safetySecY, cw, safetyH, 1.5, 1.5, 'D');
+
     doc.setTextColor(...cAmber);
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(8.5);
-    doc.text('STAYS & HIGH-ALTITUDE CAMPS', m, staySecY + 4);
+    doc.text('HIGH-ALTITUDE SAFETY, MEDICAL & LOGISTICS PROTOCOLS', m + 5, safetySecY + 7);
 
-    let stayGridY = staySecY + 7;
-    const stayCardW = (cw - 4) / 2;
-    const stayCardH = 46;
-
-    ACCOMMODATIONS.forEach((stay, idx) => {
-      const col = idx % 2;
-      const row = Math.floor(idx / 2);
-      const sX = m + col * (stayCardW + 4);
-      const sY = stayGridY + row * (stayCardH + 3);
-
-      doc.setFillColor(...cCardBg);
-      doc.roundedRect(sX, sY, stayCardW, stayCardH, 1.5, 1.5, 'F');
-      doc.setDrawColor(...cBorder);
-      doc.roundedRect(sX, sY, stayCardW, stayCardH, 1.5, 1.5, 'D');
-
-      // Top Photo
-      if (stay.image) {
-        doc.addImage(stay.image, 'JPEG', sX, sY, stayCardW, 20);
+    const safetyColW = (cw - 12) / 3;
+    const safetyItems = [
+      {
+        title: 'Portable Oxygen & SPO2',
+        desc: 'Continuous pulse-oximeter health monitoring at Guptkashi, Sonprayag & Kedarnath top with emergency medical oxygen canisters.'
+      },
+      {
+        title: 'Biometric Registration',
+        desc: 'End-to-end Uttarakhand Yatra pass, biometric registration clearance, and guaranteed Sonprayag shuttle coordinates included.'
+      },
+      {
+        title: 'Certified Mountain Guides',
+        desc: 'Licensed IMF / UIAA certified captains with satellite walkie-talkie communication, high-altitude first-aid, and safety ropes.'
       }
-      doc.setFillColor(0, 0, 0);
-      doc.rect(sX, sY + 14, stayCardW, 6, 'F');
-      doc.setTextColor(255, 255, 255);
-      doc.setFont('helvetica', 'bold');
-      doc.setFontSize(5.5);
-      doc.text(stay.location, sX + 3, sY + 18);
+    ];
 
-      // Title & Description
-      doc.setTextColor(...cTextMain);
-      doc.setFont('helvetica', 'bold');
-      doc.setFontSize(7.2);
-      doc.text(stay.name, sX + 3, sY + 25);
+    safetyItems.forEach((sItem, sIdx) => {
+      const sBoxX = m + 4 + sIdx * (safetyColW + 2);
+      const sBoxY = safetySecY + 13;
+
+      doc.setFillColor(255, 255, 255);
+      doc.roundedRect(sBoxX, sBoxY, safetyColW, 32, 1, 1, 'F');
+      doc.setDrawColor(229, 231, 235);
+      doc.roundedRect(sBoxX, sBoxY, safetyColW, 32, 1, 1, 'D');
 
       doc.setTextColor(...cEmerald);
-      doc.setFont('helvetica', 'normal');
-      doc.setFontSize(6);
-      doc.text(stay.type, sX + 3, sY + 29);
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(6.8);
+      doc.text('✓  ' + sItem.title, sBoxX + 3, sBoxY + 5.5);
 
       doc.setTextColor(...cTextMuted);
+      doc.setFont('helvetica', 'normal');
       doc.setFontSize(5.8);
-      const sDesc = doc.splitTextToSize(stay.description, stayCardW - 6);
-      doc.text(sDesc, sX + 3, sY + 34);
+      const sDesc = doc.splitTextToSize(sItem.desc, safetyColW - 6);
+      doc.text(sDesc, sBoxX + 3, sBoxY + 11);
     });
 
     drawFooter(4);
 
     /* =========================================================================
-       PAGE 5: PRICING, 2 UPI QR CODES, CHECKLIST, HOST BANNER
+       PAGE 5: PRICING, ACTIVE GPAY/UPI BUTTONS, CHECKLIST, HOST BANNER
     ========================================================================= */
     onProgress?.('Generating Page 5 of 5: Pricing, UPI QR Codes & Booking...');
     await new Promise((r) => setTimeout(r, 40));
@@ -767,6 +788,11 @@ export async function exportBrochureToPdf(
     doc.setFontSize(6.2);
     doc.text('per person (7 Days • 6 Nights)  •  Token Advance: ₹5,000', m + 4, p5CardY + 28);
 
+    // Clickable link for Bangalore package
+    doc.link(m, p5CardY, p5CardW, p5CardH, {
+      url: 'https://wa.me/919902937730?text=Hi%20Trek%20%26%20Stay%20team%2C%20I%20want%20to%20reserve%20the%20Bangalore%20to%20Bangalore%20Package%20(%E2%82%B934%2C000)%20for%20Dodham%20Yatra.'
+    });
+
     // Delhi Package Card
     const dCardX = m + p5CardW + 4;
     doc.setFillColor(...cCardBg);
@@ -798,6 +824,11 @@ export async function exportBrochureToPdf(
     doc.setFontSize(6.2);
     doc.text('per person (7 Days • 6 Nights)  •  Token Advance: ₹5,000', dCardX + 4, p5CardY + 28);
 
+    // Clickable link for Delhi package
+    doc.link(dCardX, p5CardY, p5CardW, p5CardH, {
+      url: 'https://wa.me/919902937730?text=Hi%20Trek%20%26%20Stay%20team%2C%20I%20want%20to%20reserve%20the%20Delhi%20to%20Delhi%20Package%20(%E2%82%B917%2C500)%20for%20Dodham%20Yatra.'
+    });
+
     // Group Offers Ribbon
     const offerY = p5CardY + p5CardH + 3;
     doc.setFillColor(254, 243, 199);
@@ -812,9 +843,9 @@ export async function exportBrochureToPdf(
     doc.setTextColor(...cEmerald);
     doc.text('🎁 9+ Bookings → 1 SLOT FREE', m + (cw - 4) / 2 + 4 + (cw - 4) / 4, offerY + 4.8, { align: 'center' });
 
-    // UPI Payment Box with 2 Rendered QR Codes
+    // UPI Payment Box with 2 Rendered QR Codes and Active Payment Buttons
     const upiBoxY = offerY + 10;
-    const upiBoxH = 60;
+    const upiBoxH = 68;
 
     doc.setFillColor(254, 243, 199);
     doc.roundedRect(m, upiBoxY, cw, upiBoxH, 1.5, 1.5, 'F');
@@ -824,76 +855,96 @@ export async function exportBrochureToPdf(
     doc.setTextColor(...cTextMain);
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(8.5);
-    doc.text('SCAN TO PAY WITH ANY UPI APP (GPAY / PHONEPE / PAYTM / BHIM)', pw / 2, upiBoxY + 5.5, { align: 'center' });
+    doc.text('SCAN OR CLICK TO PAY WITH GOOGLE PAY / PHONEPE / PAYTM / BHIM', pw / 2, upiBoxY + 5.5, { align: 'center' });
 
     doc.setTextColor(...cTextMuted);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(6.5);
-    doc.text('Official Account: Ganapathi Bhat • Canara Bank (A/c ending 2821)', pw / 2, upiBoxY + 9.5, { align: 'center' });
+    doc.text('Official Payee: Ganapathi Bhat • Canara Bank (A/c ending 2821)', pw / 2, upiBoxY + 9.5, { align: 'center' });
 
     // Official UPI ID Badge
     doc.setFillColor(255, 255, 255);
-    doc.roundedRect(pw / 2 - 38, upiBoxY + 12, 76, 6, 1, 1, 'F');
+    doc.roundedRect(pw / 2 - 42, upiBoxY + 12, 84, 6, 1, 1, 'F');
     doc.setTextColor(...cAmber);
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(7.5);
     doc.text('OFFICIAL UPI ID:   ganapathibhat5@ybl', pw / 2, upiBoxY + 16.2, { align: 'center' });
 
+    // Clickable link on UPI ID badge
+    doc.link(pw / 2 - 42, upiBoxY + 12, 84, 6, {
+      url: 'https://wa.me/919902937730?text=Hi%20Trek%20%26%20Stay%20team%2C%20I%20have%20sent%20UPI%20payment%20to%20ganapathibhat5%40ybl%20and%20want%20to%20confirm%20my%20slot.'
+    });
+
     // 2 QR Codes Side by Side
     const qr1X = pw / 2 - 44;
     const qr2X = pw / 2 + 8;
-    const qrY = upiBoxY + 20;
+    const qrY = upiBoxY + 19.5;
+
+    const payUrlDelhi = 'https://wa.me/919902937730?text=Hi%20Trek%20%26%20Stay%20team%2C%20I%20am%20paying%20%E2%82%B917%2C500%20via%20GPay%2FPhonePe%2FUPI%20for%20the%20Delhi%20Dodham%20Package.';
+    const payUrlBlr = 'https://wa.me/919902937730?text=Hi%20Trek%20%26%20Stay%20team%2C%20I%20am%20paying%20%E2%82%B934%2C000%20via%20GPay%2FPhonePe%2FUPI%20for%20the%20Bangalore%20Dodham%20Package.';
 
     try {
       const upiDelhi = `upi://pay?pa=ganapathibhat5@ybl&pn=Ganapathi%20Bhat&am=17500&cu=INR&tn=Dodham-Delhi-Tour`;
       const qrDelhi = getQRCodeDataURL(upiDelhi, 180);
       if (qrDelhi) {
-        doc.addImage(qrDelhi, 'PNG', qr1X, qrY, 26, 26);
+        doc.addImage(qrDelhi, 'PNG', qr1X, qrY, 25, 25);
         doc.setTextColor(...cTextMain);
         doc.setFont('helvetica', 'bold');
         doc.setFontSize(6);
-        doc.text('Delhi: ₹17,500', qr1X + 13, qrY + 30, { align: 'center' });
+        doc.text('Delhi Plan: ₹17,500', qr1X + 12.5, qrY + 28.5, { align: 'center' });
         doc.setFont('helvetica', 'normal');
         doc.setFontSize(5);
         doc.setTextColor(...cTextMuted);
-        doc.text('ganapathibhat5@ybl', qr1X + 13, qrY + 33, { align: 'center' });
-        doc.link(qr1X, qrY, 26, 35, { url: upiDelhi });
+        doc.text('Click to Pay / Confirm ↗', qr1X + 12.5, qrY + 31.5, { align: 'center' });
+        doc.link(qr1X, qrY, 25, 33, { url: payUrlDelhi });
       }
 
       const upiBlr = `upi://pay?pa=ganapathibhat5@ybl&pn=Ganapathi%20Bhat&am=34000&cu=INR&tn=Dodham-Bangalore-Tour`;
       const qrBlr = getQRCodeDataURL(upiBlr, 180);
       if (qrBlr) {
-        doc.addImage(qrBlr, 'PNG', qr2X, qrY, 26, 26);
+        doc.addImage(qrBlr, 'PNG', qr2X, qrY, 25, 25);
         doc.setTextColor(...cTextMain);
         doc.setFont('helvetica', 'bold');
         doc.setFontSize(6);
-        doc.text('Bangalore: ₹34,000', qr2X + 13, qrY + 30, { align: 'center' });
+        doc.text('Bangalore: ₹34,000', qr2X + 12.5, qrY + 28.5, { align: 'center' });
         doc.setFont('helvetica', 'normal');
         doc.setFontSize(5);
         doc.setTextColor(...cTextMuted);
-        doc.text('ganapathibhat5@ybl', qr2X + 13, qrY + 33, { align: 'center' });
-        doc.link(qr2X, qrY, 26, 35, { url: upiBlr });
+        doc.text('Click to Pay / Confirm ↗', qr2X + 12.5, qrY + 31.5, { align: 'center' });
+        doc.link(qr2X, qrY, 25, 33, { url: payUrlBlr });
       }
     } catch (e) {
       console.warn('QR error:', e);
     }
 
-    // Copy UPI Button
-    const copyBtnW = 54;
-    const copyBtnH = 5.5;
-    const copyBtnX = pw / 2 - copyBtnW / 2;
-    const copyBtnY = upiBoxY + upiBoxH - 7.5;
+    // Two High-Impact Clickable Action Buttons for Instant GPay / UPI / WhatsApp Checkout
+    const btnRowY = upiBoxY + upiBoxH - 12.5;
+    const actionBtnW = (cw - 12) / 2;
+    const actionBtnH = 8.5;
 
-    doc.setFillColor(255, 255, 255);
-    doc.roundedRect(copyBtnX, copyBtnY, copyBtnW, copyBtnH, 1, 1, 'F');
-    doc.setDrawColor(...cBorder);
-    doc.roundedRect(copyBtnX, copyBtnY, copyBtnW, copyBtnH, 1, 1, 'D');
-
-    doc.setTextColor(...cTextMain);
+    // Button 1: GPay / PhonePe / WhatsApp Instant Confirmation
+    const b1X = m + 4;
+    doc.setFillColor(...cEmerald);
+    doc.roundedRect(b1X, btnRowY, actionBtnW, actionBtnH, 1.2, 1.2, 'F');
+    doc.setTextColor(255, 255, 255);
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(6.2);
-    doc.text('Copy UPI ID (ganapathibhat5@ybl)', pw / 2, copyBtnY + 3.8, { align: 'center' });
-    doc.link(copyBtnX, copyBtnY, copyBtnW, copyBtnH, { url: 'upi://pay?pa=ganapathibhat5@ybl&pn=Ganapathi%20Bhat&am=5000&cu=INR' });
+    doc.setFontSize(6.8);
+    doc.text('⚡ CLICK TO PAY VIA GPAY / PHONEPE / WHATSAPP', b1X + actionBtnW / 2, btnRowY + 5.5, { align: 'center' });
+    doc.link(b1X, btnRowY, actionBtnW, actionBtnH, {
+      url: 'https://wa.me/919902937730?text=Hello%20Trek%20%26%20Stay%20team%2C%20I%20want%20to%20pay%20via%20UPI%20(GPay%2FPhonePe%2FPaytm)%20for%20Dodham%20Yatra.'
+    });
+
+    // Button 2: Web Payment Portal
+    const b2X = m + 4 + actionBtnW + 4;
+    doc.setFillColor(...cDark);
+    doc.roundedRect(b2X, btnRowY, actionBtnW, actionBtnH, 1.2, 1.2, 'F');
+    doc.setTextColor(255, 255, 255);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(6.8);
+    doc.text('💳 OPEN ONLINE PAYMENT & BOOKING PORTAL', b2X + actionBtnW / 2, btnRowY + 5.5, { align: 'center' });
+    doc.link(b2X, btnRowY, actionBtnW, actionBtnH, {
+      url: 'https://trekandstay.vercel.app/#upcoming'
+    });
 
     // Section: Things to Carry (Essential Packing List Checklist Grid)
     const packSecY = upiBoxY + upiBoxH + 3;
