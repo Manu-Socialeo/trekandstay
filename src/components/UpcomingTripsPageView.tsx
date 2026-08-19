@@ -429,38 +429,14 @@ export function UpcomingTripsPageView({
                       )}
                     </div>
 
-                    {/* Special Dodham Action Row */}
-                    {trip.isDodhamSpecial ? (
-                      <div className="grid grid-cols-2 gap-2">
-                        <button
-                          type="button"
-                          onClick={handleDownloadDodhamPdf}
-                          disabled={isGeneratingPdf}
-                          className="bg-amber-600 hover:bg-amber-500 text-white font-bold py-2.5 px-3 rounded-xl text-xs transition shadow-md active:scale-95 cursor-pointer flex items-center justify-center gap-1.5"
-                        >
-                          <Download className="w-3.5 h-3.5" />
-                          <span>Download PDF</span>
-                        </button>
-
-                        <button
-                          type="button"
-                          onClick={handleOpenBrochureTab}
-                          className="bg-white/10 hover:bg-white/20 text-amber-300 font-bold py-2.5 px-3 rounded-xl text-xs transition border border-amber-500/30 flex items-center justify-center gap-1.5 cursor-pointer"
-                        >
-                          <FileText className="w-3.5 h-3.5" />
-                          <span>View Brochure</span>
-                        </button>
-                      </div>
-                    ) : (
-                      <button
-                        type="button"
-                        onClick={() => onOpenBooking(trip.title, trip.price)}
-                        className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 px-4 rounded-xl text-xs transition-all shadow-md active:scale-95 cursor-pointer flex items-center justify-center gap-1.5"
-                      >
-                        <span>Book Slot</span>
-                        <ChevronRight className="w-4 h-4" />
-                      </button>
-                    )}
+                    <button
+                      type="button"
+                      onClick={() => onOpenBooking(trip.title, trip.price)}
+                      className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 px-4 rounded-xl text-xs transition-all shadow-md active:scale-95 cursor-pointer flex items-center justify-center gap-1.5"
+                    >
+                      <span>Book Slot</span>
+                      <ChevronRight className="w-4 h-4" />
+                    </button>
                   </div>
                 </div>
               );
@@ -491,40 +467,7 @@ export function UpcomingTripsPageView({
         /* =========================================================================
             TAB 2: INTEGRATED DODHAM MASTER BROCHURE & PDF VIEWER
         ========================================================================= */
-        <div className="max-w-7xl mx-auto px-2 sm:px-4 md:px-8 pt-4">
-          <div className="mb-4 bg-slate-900 border border-amber-500/40 rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3">
-            <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping" />
-              <span className="text-xs font-bold text-white">Viewing Official 5-Page Dodham Yatra & Adventure Brochure</span>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <button
-                onClick={handleDownloadDodhamPdf}
-                disabled={isGeneratingPdf}
-                className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-black py-1.5 px-4 rounded-lg text-xs transition flex items-center gap-1.5 cursor-pointer shadow"
-              >
-                <Download className="w-3.5 h-3.5 text-slate-950" />
-                <span>{isGeneratingPdf ? 'Generating PDF...' : 'Download PDF Brochure'}</span>
-              </button>
-
-              <button
-                onClick={() => openPrintOptimizedWindow()}
-                className="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-bold py-1.5 px-3 rounded-lg text-xs transition flex items-center gap-1.5 cursor-pointer"
-              >
-                <Printer className="w-3.5 h-3.5" />
-                <span>Print</span>
-              </button>
-
-              <button
-                onClick={() => setActiveTab('calendar')}
-                className="bg-white/10 hover:bg-white/20 text-slate-200 font-bold py-1.5 px-3 rounded-lg text-xs transition cursor-pointer"
-              >
-                ← Back to Batches Calendar
-              </button>
-            </div>
-          </div>
-
+        <div className="max-w-7xl mx-auto px-2 sm:px-4 md:px-8">
           {/* Embedded Full Document Brochure */}
           <div className="rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
             <DocumentBrochureView
