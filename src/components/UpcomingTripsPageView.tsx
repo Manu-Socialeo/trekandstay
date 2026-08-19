@@ -218,13 +218,13 @@ export function UpcomingTripsPageView({
   )}`;
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 pt-24 pb-20 animate-fade-in font-sans">
+    <div className="min-h-screen bg-slate-950 text-slate-100 pt-28 sm:pt-32 pb-20 animate-fade-in font-sans">
       
       {/* =========================================================================
-          TOP ACTION BAR & BREADCRUMB
+          TOP ACTION BAR & BREADCRUMB (Cleanly positioned below website header)
       ========================================================================= */}
-      <div className="border-b border-white/10 bg-slate-900/80 backdrop-blur-md sticky top-14 lg:top-16 z-30 px-4 sm:px-8 py-3">
-        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 mb-6">
+        <div className="border border-white/10 bg-slate-900/90 backdrop-blur-md rounded-2xl p-3 sm:px-6 flex flex-wrap items-center justify-between gap-3 shadow-lg">
           
           <div className="flex items-center gap-3">
             <button 
@@ -258,7 +258,7 @@ export function UpcomingTripsPageView({
               onClick={() => setActiveTab('brochure')}
               className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
                 activeTab === 'brochure'
-                  ? 'bg-amber-500 text-slate-950 shadow-md'
+                  ? 'bg-amber-500 text-slate-950 shadow-md font-extrabold'
                   : 'text-amber-300 hover:text-white'
               }`}
             >
@@ -294,9 +294,11 @@ export function UpcomingTripsPageView({
 
       {/* Global PDF Generation Progress Banner */}
       {isGeneratingPdf && (
-        <div className="bg-amber-500 text-slate-950 px-4 py-2.5 text-center text-xs font-extrabold flex items-center justify-center gap-2 shadow-lg animate-pulse sticky top-28 z-40">
-          <Download className="w-4 h-4 animate-bounce" />
-          <span>{pdfProgressText || 'Rendering 5-Page High Resolution PDF Brochure...'}</span>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 mb-4">
+          <div className="bg-amber-500 text-slate-950 px-4 py-2.5 rounded-xl text-center text-xs font-extrabold flex items-center justify-center gap-2 shadow-lg animate-pulse">
+            <Download className="w-4 h-4 animate-bounce" />
+            <span>{pdfProgressText || 'Rendering 5-Page High Resolution PDF Brochure...'}</span>
+          </div>
         </div>
       )}
 
