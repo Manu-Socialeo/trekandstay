@@ -292,9 +292,9 @@ export function UpcomingTripsPageView({
       )}
 
       {/* =========================================================================
-          TAB CONTENT AREA
+          TAB 1: BATCHES CALENDAR
       ========================================================================= */}
-      {activeTab === 'calendar' ? (
+      <div className={activeTab === 'calendar' ? 'block' : 'hidden'}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 pt-4">
           
           {/* Header & Subtitle */}
@@ -452,10 +452,15 @@ export function UpcomingTripsPageView({
           </div>
 
         </div>
-      ) : (
-        /* =========================================================================
-            TAB 2: INTEGRATED DODHAM MASTER BROCHURE & PDF VIEWER
-        ========================================================================= */
+      </div>
+
+      {/* =========================================================================
+          TAB 2: INTEGRATED DODHAM MASTER BROCHURE & PDF VIEWER
+      ========================================================================= */}
+      <div 
+        id="pdf-brochure-wrapper"
+        className={activeTab === 'brochure' ? 'block' : 'hidden'}
+      >
         <div className="max-w-7xl mx-auto px-2 sm:px-4 md:px-8">
           {/* Embedded Full Document Brochure */}
           <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-xl bg-white">
@@ -467,7 +472,7 @@ export function UpcomingTripsPageView({
             />
           </div>
         </div>
-      )}
+      </div>
 
     </div>
   );
