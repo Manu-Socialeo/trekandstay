@@ -3,10 +3,11 @@
  * Generates the EXACT 5 visual pages matching the official Dodham Yatra & Adventure Brochure:
  * - All real high-resolution photos embedded in-memory
  * - Exact color palettes (#0f172a, amber-500, emerald-600, slate borders)
- * - 4 Photo collages, 8 Itinerary day cards with right-side photo banners
+ * - 4 Photo collages, 8 Itinerary day cards with right-side photo banners & clickable Google Maps links
  * - 7 Pickup Hubs with active "Google Map" clickable link buttons
- * - 4 Stay cards with real photos
+ * - High-Altitude Safety, Medical & Biometric Registration Protocols
  * - Delhi & Bangalore pricing cards, dual UPI QR codes, 12 packing checkboxes
+ * - GPay / PhonePe / WhatsApp direct instant payment links
  * - About Your Hosts dark footer with Helpline, WhatsApp, Portal, and Email links
  * - Runs in <0.25s with 0 network dependencies and 100% reliability.
  */
