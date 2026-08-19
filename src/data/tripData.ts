@@ -1,4 +1,5 @@
 import { DodhamItineraryDay, DodhamPackageOption, DodhamPickupLocation, DodhamPackingItem } from '../types/dodhamTypes';
+import { BROCHURE_IMAGES } from './brochureImages';
 
 export const TRIP_META = {
   title: 'DODHAM YATRA + ADVENTURE SPECIAL',
@@ -108,7 +109,7 @@ export const ITINERARY_DAYS: DodhamItineraryDay[] = [
     mapQuery: 'Haridwar Railway Station, Uttarakhand',
     mapUrl: 'https://maps.google.com/?q=Haridwar+Railway+Station',
     keyHighlights: ['Overnight 3A train journey', 'Himalayan foothills arrival', 'Group ice-breaking session'],
-    image: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1000&q=80',
+    image: BROCHURE_IMAGES.flight,
     imageCaption: 'BLR to Delhi Flight & Onward Overnight Train to Haridwar',
   },
   {
@@ -141,7 +142,7 @@ export const ITINERARY_DAYS: DodhamItineraryDay[] = [
     mapQuery: 'Sonprayag, Uttarakhand',
     mapUrl: 'https://maps.google.com/?q=Sonprayag+Uttarakhand',
     keyHighlights: ['White water rafting in Rishikesh', 'View Devprayag Sangam', 'Himalayan mountain highway drive', 'Pre-trek briefing'],
-    image: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1000&q=80',
+    image: BROCHURE_IMAGES.tempo,
     imageCaption: 'Mountain Tempo Traveller & Bus Transport cruising through Himalayan valleys',
   },
   {
@@ -175,7 +176,7 @@ export const ITINERARY_DAYS: DodhamItineraryDay[] = [
     mapQuery: 'Kedarnath Temple, Uttarakhand',
     mapUrl: 'https://maps.google.com/?q=Kedarnath+Temple',
     keyHighlights: ['Sacred Kedarnath Darshan', 'Majestic snow-capped Himalayan peaks', 'Bhim Shila darshan', 'Alpine tent stay at high altitude'],
-    image: 'https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=1000&q=80',
+    image: BROCHURE_IMAGES.kedarnath,
     imageCaption: 'The sacred Kedarnath Temple situated amidst majestic snow-capped peaks (11,755 ft)',
   },
   {
@@ -206,7 +207,7 @@ export const ITINERARY_DAYS: DodhamItineraryDay[] = [
     mapQuery: 'Gaurikund, Uttarakhand',
     mapUrl: 'https://maps.google.com/?q=Gaurikund+Uttarakhand',
     keyHighlights: ['Early morning Golden Hour Kedarnath Aarti', 'Relaxed downhill trek', 'Hot dinner and recovery sleep'],
-    image: 'https://images.unsplash.com/photo-1596401057633-54a8fe8ef647?auto=format&fit=crop&w=1000&q=80',
+    image: BROCHURE_IMAGES.gaurikund,
     imageCaption: 'Gaurikund bustling pilgrimage market road & bridge over Mandakini river',
   },
   {
@@ -239,7 +240,7 @@ export const ITINERARY_DAYS: DodhamItineraryDay[] = [
     mapQuery: 'Badrinath Temple, Uttarakhand',
     mapUrl: 'https://maps.google.com/?q=Badrinath+Temple',
     keyHighlights: ['Scenic Chopta Valley views', 'Sacred Badrinath Temple Darshan', 'Tapt Kund natural hot springs', 'Alaknanda river origins'],
-    image: 'https://images.unsplash.com/photo-1609137144813-7d9921338f24?auto=format&fit=crop&w=1000&q=80',
+    image: BROCHURE_IMAGES.badrinath,
     imageCaption: 'The iconic and vibrant Shri Badrinath Temple nestled between Nar & Narayana mountains',
   },
   {
@@ -271,7 +272,7 @@ export const ITINERARY_DAYS: DodhamItineraryDay[] = [
     mapQuery: 'Mana Village, Uttarakhand',
     mapUrl: 'https://maps.google.com/?q=Mana+Village+Uttarakhand',
     keyHighlights: ['Mana: India’s First Village', 'Saraswati River origin', 'Vyas Gufa historical site', 'Descending to lush Rishikesh foothills'],
-    image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1000&q=80',
+    image: BROCHURE_IMAGES.mana,
     imageCaption: 'Mana — The First Village of India near the Indo-Tibetan border',
   },
   {
@@ -302,7 +303,7 @@ export const ITINERARY_DAYS: DodhamItineraryDay[] = [
     mapQuery: 'Rishikesh, Uttarakhand',
     mapUrl: 'https://maps.google.com/?q=Rishikesh+Uttarakhand',
     keyHighlights: ['White Water River Rafting with cliff jump', 'India’s highest Bungee jump at Mohan Chatti', 'Evening Ganga riverbanks', 'Return transit starts'],
-    image: 'https://images.unsplash.com/photo-1530866495561-507c9faab2ed?auto=format&fit=crop&w=1000&q=80',
+    image: BROCHURE_IMAGES.rafting,
     imageCaption: 'Ganga White Water River Rafting & Adventure in Rishikesh',
   },
   {
@@ -332,7 +333,7 @@ export const ITINERARY_DAYS: DodhamItineraryDay[] = [
     mapQuery: 'Kempegowda International Airport Bengaluru',
     mapUrl: 'https://maps.google.com/?q=Kempegowda+International+Airport',
     keyHighlights: ['Zero stress transit safety', 'Weather delay resilience', 'Smooth flight return'],
-    image: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1000&q=80',
+    image: BROCHURE_IMAGES.safe_return,
     imageCaption: 'Safe journey conclusion with eternal memories of the Devbhoomi Himalayas',
   },
 ];
@@ -473,7 +474,7 @@ export const ACCOMMODATIONS = [
     name: 'Sonprayag / Guptkashi Mountain Lodge',
     type: 'Comfortable Hotel with Attached Baths',
     location: 'Sonprayag / Guptkashi Base',
-    image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80',
+    image: BROCHURE_IMAGES.gaurikund,
     description: 'Clean, sanitized rooms with hot water facilities, delicious vegetarian food, and valley views before starting the trek.',
     features: ['Attached Bathroom', 'Hot Water', 'Geyser / Bucket Facility', 'Pure Veg Dining', '24/7 Power Backup']
   },
@@ -481,7 +482,7 @@ export const ACCOMMODATIONS = [
     name: 'Kedarnath Alpine High-Altitude Tents',
     type: 'Alpine Mountain Camping / GMVN Dorm',
     location: 'Kedarnath Dham (Near Temple)',
-    image: 'https://images.unsplash.com/photo-1510312305653-8ed496efae75?auto=format&fit=crop&w=800&q=80',
+    image: BROCHURE_IMAGES.tent,
     description: 'Special alpine tent accommodation pitched under starry Himalayan skies, just minutes away from the holy Kedarnath shrine.',
     features: ['Heavy Thermal Blankets', 'Foam Mattresses', 'Walkable to Temple', 'Magnificent Peak Views', 'Safe Group Campsite']
   },
@@ -489,7 +490,7 @@ export const ACCOMMODATIONS = [
     name: 'Badrinath Pilgrim Hotel',
     type: 'Standard Pilgrim Hotel',
     location: 'Badrinath Puri Valley',
-    image: 'https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=800&q=80',
+    image: BROCHURE_IMAGES.badrinath,
     description: 'Cozy hotel stay situated in the sacred Badrinath town, walking distance from Tapt Kund and the main temple entrance.',
     features: ['Thermal Bedding', 'Room Heating (on request)', 'Walking Distance to Temple', 'Hot Water', 'Mountain Views']
   },
@@ -497,7 +498,7 @@ export const ACCOMMODATIONS = [
     name: 'Rishikesh Riverside Resort / Camp',
     type: 'Adventure Resort with Ganga View',
     location: 'Rishikesh / Shivpuri Foothills',
-    image: 'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=800&q=80',
+    image: BROCHURE_IMAGES.camp,
     description: 'Scenic resort near the banks of holy Ganga, equipped with river views, outdoor dining, and easy access to rafting launch points.',
     features: ['Riverside Ambience', 'Adventure Sports Desk', 'Bonfire & Music', 'Attached Bathrooms', 'Delicious Buffet']
   }

@@ -52,6 +52,7 @@ import {
   PACKING_ITEMS,
   TERMS_AND_CONDITIONS
 } from '../data/tripData';
+import { BROCHURE_IMAGES } from '../data/brochureImages';
 import { getQRCodeDataURL } from '../utils/qrCode';
 import { exportBrochureToPdf, openPrintOptimizedWindow } from '../utils/pdfExport';
 
@@ -427,10 +428,8 @@ export const DocumentBrochureView: React.FC<DocumentBrochureViewProps> = ({
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 p-1.5 bg-stone-950">
             <div className="relative aspect-[4/3] sm:aspect-square overflow-hidden bg-stone-900 group">
               <img
-                src="https://images.unsplash.com/photo-1626621341517-bbf3d9990a23?auto=format&fit=crop&w=800&q=80"
+                src={BROCHURE_IMAGES.kedarnath}
                 alt="Kedarnath Temple with snow-capped Himalayas"
-                crossOrigin="anonymous"
-                referrerPolicy="no-referrer"
                 className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent flex items-end p-2.5">
@@ -443,10 +442,8 @@ export const DocumentBrochureView: React.FC<DocumentBrochureViewProps> = ({
 
             <div className="relative aspect-[4/3] sm:aspect-square overflow-hidden bg-stone-900 group">
               <img
-                src="https://images.unsplash.com/photo-1609137144813-7d9921338f24?auto=format&fit=crop&w=800&q=80"
+                src={BROCHURE_IMAGES.badrinath}
                 alt="Badrinath Temple vibrant facade"
-                crossOrigin="anonymous"
-                referrerPolicy="no-referrer"
                 className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent flex items-end p-2.5">
@@ -459,10 +456,8 @@ export const DocumentBrochureView: React.FC<DocumentBrochureViewProps> = ({
 
             <div className="relative aspect-[4/3] sm:aspect-square overflow-hidden bg-stone-900 group">
               <img
-                src="https://images.unsplash.com/photo-1530866495561-507c9faab2ed?auto=format&fit=crop&w=800&q=80"
+                src={BROCHURE_IMAGES.rafting}
                 alt="Ganga White Water River Rafting in Rishikesh"
-                crossOrigin="anonymous"
-                referrerPolicy="no-referrer"
                 className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent flex items-end p-2.5">
@@ -475,10 +470,8 @@ export const DocumentBrochureView: React.FC<DocumentBrochureViewProps> = ({
 
             <div className="relative aspect-[4/3] sm:aspect-square overflow-hidden bg-stone-900 group">
               <img
-                src="https://images.unsplash.com/photo-1517649763962-0c623266ddc0?auto=format&fit=crop&w=800&q=80"
+                src={BROCHURE_IMAGES.bungee}
                 alt="India's Highest Bungee Jump at Mohan Chatti"
-                crossOrigin="anonymous"
-                referrerPolicy="no-referrer"
                 className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent flex items-end p-2.5">
