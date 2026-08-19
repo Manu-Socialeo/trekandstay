@@ -1060,10 +1060,25 @@ export async function exportBrochureToPdf(
 
     drawFooter(5);
 
-    // Save and download directly
+    // Save and download with multi-layer browser download fallback
     onProgress?.('Saving official 5-page PDF brochure...');
     await new Promise((r) => setTimeout(r, 40));
-    doc.save('TrekAndStay-Dodham-Yatra-Adventure-Brochure.pdf');
+
+    try {
+      doc.save('TrekAndStay-Dodham-Yatra-Adventure-Brochure.pdf');
+    } catch (saveErr) {
+      console.warn('doc.save fallback triggered:', saveErr);
+      const pdfBlob = doc.output('blob');
+      const blobUrl = window.URL.createObjectURL(pdfBlob);
+      const dlAnchor = document.createElement('a');
+      dlAnchor.href = blobUrl;
+      dlAnchor.download = 'TrekAndStay-Dodham-Yatra-Adventure-Brochure.pdf';
+      document.body.appendChild(dlAnchor);
+      dlAnchor.click();
+      document.body.removeChild(dlAnchor);
+      setTimeout(() => window.URL.revokeObjectURL(blobUrl), 2000);
+    }
+
     onProgress?.('Brochure downloaded successfully!');
   } catch (err) {
     console.error('Error generating 5-page PDF:', err);
