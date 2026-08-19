@@ -177,30 +177,19 @@ export function UpcomingTripsPageView({
 
   const handleDownloadDodhamPdf = async () => {
     setIsGeneratingPdf(true);
-    setPdfProgressText('Initializing Dodham A4 PDF layout...');
-    
-    // Switch to brochure tab if not already there so PDF elements are active in DOM
-    if (activeTab !== 'brochure') {
-      setActiveTab('brochure');
-      await new Promise(r => setTimeout(r, 400));
-    }
+    setPdfProgressText('Generating official 5-page Dodham PDF brochure...');
 
     try {
       await exportBrochureToPdf((step) => {
         setPdfProgressText(step);
       });
-      setPdfProgressText('Brochure PDF downloaded successfully!');
       setTimeout(() => {
         setIsGeneratingPdf(false);
         setPdfProgressText('');
-      }, 2000);
+      }, 1200);
     } catch {
-      setPdfProgressText('Opening Print / Save as PDF view...');
-      setTimeout(() => {
-        setIsGeneratingPdf(false);
-        setPdfProgressText('');
-        openPrintOptimizedWindow();
-      }, 1000);
+      setIsGeneratingPdf(false);
+      setPdfProgressText('');
     }
   };
 

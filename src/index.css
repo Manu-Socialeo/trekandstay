@@ -6,3 +6,43 @@
   }
 }
 
+@media print {
+  /* Hide all website navigation, fixed headers, buttons, footers during PDF printing */
+  nav,
+  header:not(.print-header),
+  footer,
+  .no-print,
+  button,
+  .sticky {
+    display: none !important;
+  }
+
+  body, html {
+    background: #ffffff !important;
+    color: #1c1917 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+  }
+
+  /* Only display the 5 brochure pages */
+  article[id^="pdf-page-"] {
+    page-break-after: always !important;
+    break-after: page !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    display: block !important;
+    width: 100% !important;
+    margin: 0 0 20mm 0 !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+    background: #ffffff !important;
+    color: #1c1917 !important;
+  }
+
+  @page {
+    size: A4 portrait;
+    margin: 8mm;
+  }
+}

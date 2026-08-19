@@ -185,21 +185,16 @@ export const DocumentBrochureView: React.FC<DocumentBrochureViewProps> = ({
 
   const handleDownloadPdf = async () => {
     setIsGeneratingPdf(true);
-    setPdfProgressText('Initializing 5-page A4 layout...');
+    setPdfProgressText('Generating official 5-page Dodham PDF brochure...');
     try {
       await exportBrochureToPdf((step) => {
         setPdfProgressText(step);
       });
-      setPdfProgressText('Brochure PDF downloaded successfully!');
       setTimeout(() => {
         setIsGeneratingPdf(false);
-      }, 1800);
+      }, 1200);
     } catch {
-      setPdfProgressText('Opening Print / Save as PDF view...');
-      setTimeout(() => {
-        setIsGeneratingPdf(false);
-        openPrintOptimizedWindow();
-      }, 1000);
+      setIsGeneratingPdf(false);
     }
   };
 
