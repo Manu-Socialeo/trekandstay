@@ -183,13 +183,17 @@ export function UpcomingTripsPageView({
       await exportBrochureToPdf((step) => {
         setPdfProgressText(step);
       });
+      setPdfProgressText('Brochure PDF downloaded successfully!');
       setTimeout(() => {
         setIsGeneratingPdf(false);
         setPdfProgressText('');
-      }, 1200);
-    } catch {
-      setIsGeneratingPdf(false);
-      setPdfProgressText('');
+      }, 1500);
+    } catch (err) {
+      console.error('Download error:', err);
+      setTimeout(() => {
+        setIsGeneratingPdf(false);
+        setPdfProgressText('');
+      }, 1000);
     }
   };
 

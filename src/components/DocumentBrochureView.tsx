@@ -190,11 +190,14 @@ export const DocumentBrochureView: React.FC<DocumentBrochureViewProps> = ({
       await exportBrochureToPdf((step) => {
         setPdfProgressText(step);
       });
+      setPdfProgressText('Brochure PDF downloaded successfully!');
       setTimeout(() => {
         setIsGeneratingPdf(false);
-      }, 1200);
+        setPdfProgressText('');
+      }, 1500);
     } catch {
       setIsGeneratingPdf(false);
+      setPdfProgressText('');
     }
   };
 
