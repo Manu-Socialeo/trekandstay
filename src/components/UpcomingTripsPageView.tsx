@@ -40,6 +40,7 @@ export interface UpcomingTripBatch {
   id: string;
   title: string;
   destinationSlug: string;
+  image: string;
   dateRange: string;
   month: string;
   duration: string;
@@ -56,6 +57,7 @@ export const initialUpcomingTrips: UpcomingTripBatch[] = [
     id: 'batch-dodham-oct-1',
     title: 'Dodham Yatra & Adventure Special (Kedarnath • Badrinath • Rishikesh)',
     destinationSlug: 'kedarnath-badrinath-do-dham',
+    image: 'https://images.unsplash.com/photo-1589308454676-4658133529a1?auto=format&fit=crop&w=800&q=80',
     dateRange: 'October 02 - October 08, 2026',
     month: 'October 2026',
     duration: '7D/6N',
@@ -70,6 +72,7 @@ export const initialUpcomingTrips: UpcomingTripBatch[] = [
     id: 'batch-mh-monsoon-1',
     title: 'Maharashtra Monsoon Trails (Konkan Kada & Kalu Falls)',
     destinationSlug: 'maharashtra-monsoon-trails',
+    image: 'https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd?auto=format&fit=crop&w=800&q=80',
     dateRange: 'July 15 - July 19, 2026',
     month: 'July 2026',
     duration: '4N/5D',
@@ -77,12 +80,13 @@ export const initialUpcomingTrips: UpcomingTripBatch[] = [
     departureHub: 'Bengaluru / Pune / Mumbai',
     availableSlots: 6,
     status: 'Filling Fast',
-    badge: 'Popular'
+    badge: 'Monsoon Special'
   },
   {
     id: 'batch-kalu-falls-1',
-    title: 'Kalu Falls & Jivdhan Fort Expedition',
+    title: 'Kalu Falls & Jivdhan Fort Canyon Trek',
     destinationSlug: 'kalu-falls-misty-sahyadris',
+    image: 'https://images.unsplash.com/photo-1589182373726-e4f658ab50f0?auto=format&fit=crop&w=800&q=80',
     dateRange: 'July 24 - July 26, 2026',
     month: 'July 2026',
     duration: '2N/3D',
@@ -90,12 +94,13 @@ export const initialUpcomingTrips: UpcomingTripBatch[] = [
     departureHub: 'Pune / Mumbai / Bengaluru',
     availableSlots: 8,
     status: 'Available',
-    badge: 'Weekend Special'
+    badge: 'Weekend Escape'
   },
   {
     id: 'batch-kodachadri-1',
-    title: 'Kodachadri Foothills & Kollur Campsite Stay',
+    title: 'Kodachadri Foothills & Kollur Basecamp Sanctuary',
     destinationSlug: 'kodachadri-foothills-stay',
+    image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80',
     dateRange: 'August 01 - August 03, 2026',
     month: 'August 2026',
     duration: '3D/2N',
@@ -107,8 +112,9 @@ export const initialUpcomingTrips: UpcomingTripBatch[] = [
   },
   {
     id: 'batch-harihar-1',
-    title: 'Shitkada Rappel + Harihar 80° Rock-Cut Steps',
-    destinationSlug: 'shitkada-rappel-harihar',
+    title: 'Shitkada 300ft Rappel + Harihar 80° Rock-Cut Stairs',
+    destinationSlug: 'shitkada-rappel-harihar-fort',
+    image: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80',
     dateRange: 'August 08 - August 10, 2026',
     month: 'August 2026',
     duration: '3D/2N',
@@ -120,8 +126,9 @@ export const initialUpcomingTrips: UpcomingTripBatch[] = [
   },
   {
     id: 'batch-kedarnath-1',
-    title: 'Kedarnath - Badrinath Do Dham Pilgrimage',
+    title: 'Kedarnath - Badrinath Do Dham Sacred Pilgrimage',
     destinationSlug: 'kedarnath-badrinath-do-dham',
+    image: 'https://images.unsplash.com/photo-1582510003544-4d00b7f74220?auto=format&fit=crop&w=800&q=80',
     dateRange: 'August 18 - August 24, 2026',
     month: 'August 2026',
     duration: '6N/7D',
@@ -133,15 +140,17 @@ export const initialUpcomingTrips: UpcomingTripBatch[] = [
   },
   {
     id: 'batch-waterfalls-1',
-    title: 'Maharashtra Waterfalls Mania (Devkund & Secret Gorges)',
+    title: 'Maharashtra Waterfalls Mania (Devkund Secret Pool & Tamhini)',
     destinationSlug: 'maharashtra-waterfalls-mania',
+    image: 'https://images.unsplash.com/photo-1518495973542-4542c06a5843?auto=format&fit=crop&w=800&q=80',
     dateRange: 'August 28 - August 31, 2026',
     month: 'August 2026',
     duration: '4D/3N',
     price: '₹8,500',
     departureHub: 'Bengaluru / Pune / Mysuru',
     availableSlots: 7,
-    status: 'Available'
+    status: 'Available',
+    badge: 'Secret Waterfalls'
   }
 ];
 
@@ -348,88 +357,134 @@ export function UpcomingTripsPageView({
               return (
                 <div 
                   key={trip.id}
-                  className={`rounded-3xl p-6 shadow-sm card-hover-lift flex flex-col justify-between relative group bg-white border ${
+                  className={`rounded-3xl overflow-hidden shadow-sm card-hover-lift flex flex-col justify-between relative group bg-white border transition-all duration-300 ${
                     trip.isDodhamSpecial
-                      ? 'border-amber-400 ring-2 ring-amber-400/20'
-                      : 'border-slate-200 hover:border-slate-300'
+                      ? 'border-amber-400/80 ring-2 ring-amber-400/20 shadow-amber-500/5'
+                      : 'border-slate-200 hover:border-emerald-500/40 hover:shadow-xl'
                   }`}
                 >
                   <div>
-                    {/* Status & Badge Top Bar */}
-                    <div className="flex items-center justify-between gap-2 mb-3">
-                      {trip.badge ? (
-                        <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider ${
-                          trip.isDodhamSpecial 
-                            ? 'bg-amber-100 text-amber-800 border border-amber-300' 
-                            : 'bg-emerald-100 text-emerald-800 border border-emerald-300'
-                        }`}>
-                          {trip.badge}
-                        </span>
-                      ) : <div />}
+                    {/* Real Destination Photo Banner */}
+                    <div className="relative h-48 w-full overflow-hidden bg-slate-900">
+                      <img 
+                        src={trip.image}
+                        alt={trip.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 brightness-95 group-hover:brightness-100"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent" />
+                      
+                      {/* Status & Badge Overlay */}
+                      <div className="absolute top-3 inset-x-3 flex items-center justify-between gap-2">
+                        {trip.badge && (
+                          <span className={`px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider backdrop-blur-md shadow-md ${
+                            trip.isDodhamSpecial 
+                              ? 'bg-amber-500/90 text-slate-950 border border-amber-300' 
+                              : 'bg-emerald-600/90 text-white border border-emerald-400/30'
+                          }`}>
+                            {trip.badge}
+                          </span>
+                        )}
 
-                      <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
-                        trip.status === 'Few Slots Left' 
-                          ? 'bg-red-50 text-red-700 border border-red-200'
-                          : trip.status === 'Filling Fast'
-                          ? 'bg-amber-50 text-amber-700 border border-amber-200'
-                          : 'bg-slate-100 text-slate-700'
-                      }`}>
-                        {trip.status} ({trip.availableSlots} slots left)
-                      </span>
+                        <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold backdrop-blur-md shadow-md ml-auto ${
+                          trip.status === 'Few Slots Left' 
+                            ? 'bg-rose-500/90 text-white'
+                            : trip.status === 'Filling Fast'
+                            ? 'bg-amber-500/90 text-slate-950'
+                            : 'bg-slate-900/80 text-emerald-400 border border-emerald-500/30'
+                        }`}>
+                          {trip.status} • {trip.availableSlots} left
+                        </span>
+                      </div>
+
+                      {/* Bottom Title on Image for Rich Look */}
+                      <div className="absolute bottom-3 left-3 right-3">
+                        <span className="text-[11px] font-bold text-amber-300 uppercase tracking-wider flex items-center gap-1">
+                          <MapPin className="w-3 h-3 text-emerald-400" />
+                          <span>{trip.departureHub}</span>
+                        </span>
+                      </div>
                     </div>
 
-                    {/* Title */}
-                    <h3 className="font-display font-extrabold text-slate-900 text-lg leading-snug mb-3 group-hover:text-emerald-600 transition-colors">
-                      {trip.title}
-                    </h3>
+                    {/* Card Content Area */}
+                    <div className="p-6">
+                      {/* Title */}
+                      <h3 className="font-display font-extrabold text-slate-900 text-base sm:text-lg leading-snug mb-3 group-hover:text-emerald-700 transition-colors line-clamp-2">
+                        {trip.title}
+                      </h3>
 
-                    {/* Key Trip Meta */}
-                    <div className="space-y-2 text-xs text-slate-600 mb-6 bg-slate-50 p-4 rounded-2xl border border-slate-100">
-                      <div className="flex items-center gap-2">
-                        <Calendar className="w-4 h-4 text-emerald-600 shrink-0" />
-                        <span className="font-bold text-slate-900">{trip.dateRange}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Clock className="w-4 h-4 text-slate-400 shrink-0" />
-                        <span>Duration: <strong className="text-slate-800">{trip.duration}</strong></span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <MapPin className="w-4 h-4 text-slate-400 shrink-0" />
-                        <span className="truncate">Departure: <strong className="text-slate-800">{trip.departureHub}</strong></span>
+                      {/* Key Trip Meta */}
+                      <div className="space-y-2 text-xs text-slate-600 mb-4 bg-slate-50 p-3.5 rounded-2xl border border-slate-100">
+                        <div className="flex items-center gap-2">
+                          <Calendar className="w-4 h-4 text-emerald-600 shrink-0" />
+                          <span className="font-bold text-slate-900">{trip.dateRange}</span>
+                        </div>
+                        <div className="flex items-center justify-between gap-2 pt-1 border-t border-slate-200/60 text-[11px]">
+                          <span className="flex items-center gap-1">
+                            <Clock className="w-3.5 h-3.5 text-slate-400" />
+                            <strong>{trip.duration}</strong>
+                          </span>
+                          <span className="text-emerald-700 font-bold bg-emerald-100/70 px-2 py-0.5 rounded-full">
+                            Guided Tour
+                          </span>
+                        </div>
                       </div>
                     </div>
                   </div>
 
                   {/* Card Footer: Price & Actions */}
-                  <div className="pt-4 border-t border-slate-100 space-y-3">
-                    <div className="flex items-center justify-between">
+                  <div className="px-6 pb-6 pt-0 space-y-3">
+                    <div className="flex items-baseline justify-between">
                       <div>
                         <span className="text-[10px] uppercase font-bold text-slate-400 block leading-none mb-1">
-                          Package Price
+                          All-Inclusive Price
                         </span>
-                        <span className="text-xl font-black text-slate-900">{trip.price}</span>
+                        <span className="text-lg sm:text-xl font-black text-slate-900">{trip.price}</span>
                       </div>
 
-                      {matchedDest && onSelectDestination && (
+                      {trip.isDodhamSpecial ? (
+                        <button
+                          type="button"
+                          onClick={() => handleOpenBrochureTab()}
+                          className="text-xs font-bold text-amber-700 hover:text-amber-800 underline underline-offset-2 transition flex items-center gap-1 cursor-pointer"
+                        >
+                          <span>View Brochure</span>
+                          <ArrowUpRight className="w-3.5 h-3.5" />
+                        </button>
+                      ) : matchedDest && onSelectDestination && (
                         <button
                           type="button"
                           onClick={() => onSelectDestination(matchedDest)}
                           className="p-2 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 transition cursor-pointer"
-                          title="View Trip Details"
+                          title="View Trail Details"
                         >
                           <ArrowUpRight className="w-4 h-4" />
                         </button>
                       )}
                     </div>
 
-                    <button
-                      type="button"
-                      onClick={() => onOpenBooking(trip.title, trip.price)}
-                      className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 px-4 rounded-xl text-xs transition-all shadow-md active:scale-95 cursor-pointer flex items-center justify-center gap-1.5"
-                    >
-                      <span>Book Slot</span>
-                      <ChevronRight className="w-4 h-4" />
-                    </button>
+                    <div className="grid grid-cols-2 gap-2">
+                      <button
+                        type="button"
+                        onClick={() => onOpenBooking(trip.title, trip.price)}
+                        className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 px-3 rounded-xl text-xs transition-all shadow-md active:scale-95 cursor-pointer flex items-center justify-center gap-1"
+                      >
+                        <span>Reserve Slot</span>
+                        <ChevronRight className="w-3.5 h-3.5" />
+                      </button>
+
+                      <a
+                        href={`https://wa.me/919902937730?text=${encodeURIComponent(
+                          `Hi Trek & Stay, I want to inquire/book a slot for ${trip.title} (${trip.dateRange}).`
+                        )}`}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="w-full bg-slate-900 hover:bg-slate-800 text-emerald-400 font-bold py-2.5 px-3 rounded-xl text-xs transition-all shadow-sm active:scale-95 cursor-pointer flex items-center justify-center gap-1.5 text-center"
+                      >
+                        <MessageCircle className="w-3.5 h-3.5 text-emerald-400" />
+                        <span>WhatsApp</span>
+                      </a>
+                    </div>
                   </div>
                 </div>
               );
