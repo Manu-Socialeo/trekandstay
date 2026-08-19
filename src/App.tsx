@@ -161,10 +161,11 @@ export default function App() {
         )}
 
         {currentView === 'upcoming' && (
-          <DocumentBrochureView
-            onNavigateHome={() => handleNavigate('home')}
-            onOpenGlobalBooking={handleOpenBooking}
-            onOpenGlobalPayment={handleOpenPayment}
+          <UpcomingTripsPageView
+            onOpenBooking={handleOpenBooking}
+            onSelectDestination={handleSelectDestination}
+            onNavigateHome={handleNavigate}
+            onOpenPayment={handleOpenPayment}
           />
         )}
 

@@ -59,12 +59,14 @@ interface DocumentBrochureViewProps {
   onNavigateHome?: () => void;
   onOpenGlobalBooking?: (destination?: string, price?: string) => void;
   onOpenGlobalPayment?: () => void;
+  hideTopBar?: boolean;
 }
 
 export const DocumentBrochureView: React.FC<DocumentBrochureViewProps> = ({
   onNavigateHome,
   onOpenGlobalBooking,
-  onOpenGlobalPayment
+  onOpenGlobalPayment,
+  hideTopBar = false
 }) => {
   // Theme & UI states
   const [docTheme, setDocTheme] = useState<'light' | 'dark'>('light');
@@ -250,127 +252,129 @@ export const DocumentBrochureView: React.FC<DocumentBrochureViewProps> = ({
       {/* =========================================================================
           TOP DOCUMENT VIEWER TOOLBAR (Fixed Header - Hidden on Print)
       ========================================================================= */}
-      <header className="sticky top-0 z-40 bg-stone-900 text-stone-100 border-b border-stone-800 shadow-md no-print pt-14 lg:pt-16">
-        <div className="max-w-6xl mx-auto px-4 py-2.5 flex flex-wrap items-center justify-between gap-3">
-          {/* Logo & Document Title */}
-          <div className="flex items-center gap-2.5">
-            {onNavigateHome && (
+      {!hideTopBar && (
+        <header className="sticky top-0 z-40 bg-stone-900 text-stone-100 border-b border-stone-800 shadow-md no-print pt-14 lg:pt-16">
+          <div className="max-w-6xl mx-auto px-4 py-2.5 flex flex-wrap items-center justify-between gap-3">
+            {/* Logo & Document Title */}
+            <div className="flex items-center gap-2.5">
+              {onNavigateHome && (
+                <button
+                  onClick={onNavigateHome}
+                  className="p-1.5 rounded-lg bg-stone-800 hover:bg-stone-700 text-stone-300 border border-stone-700 transition cursor-pointer flex items-center gap-1 text-xs font-semibold"
+                  title="Back to Home"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                  <span className="hidden sm:inline">Home</span>
+                </button>
+              )}
+              <div className="w-8 h-8 rounded-lg bg-emerald-600/30 border border-emerald-500/40 text-emerald-400 flex items-center justify-center font-bold">
+                <Mountain className="w-4 h-4 text-emerald-400" />
+              </div>
+              <div>
+                <div className="text-xs font-bold text-white flex items-center gap-1.5 font-serif-brand">
+                  <span>TREK & STAY</span>
+                  <span className="text-stone-500">|</span>
+                  <span className="text-amber-400 font-sans font-semibold text-[11px]">Upcoming Itinerary</span>
+                </div>
+                <div className="text-[10px] text-stone-400">
+                  Kedarnath • Badrinath • Rishikesh (2nd–8th Oct)
+                </div>
+              </div>
+            </div>
+
+            {/* Quick Page Jump Links */}
+            <nav className="hidden md:flex items-center gap-1 text-xs text-stone-300">
               <button
-                onClick={onNavigateHome}
-                className="p-1.5 rounded-lg bg-stone-800 hover:bg-stone-700 text-stone-300 border border-stone-700 transition cursor-pointer flex items-center gap-1 text-xs font-semibold"
-                title="Back to Home"
+                onClick={() => scrollToPage('pdf-page-1')}
+                className="px-2.5 py-1 rounded hover:bg-stone-800 hover:text-amber-400 transition"
               >
-                <ChevronLeft className="w-4 h-4" />
-                <span className="hidden sm:inline">Home</span>
+                1. Overview
               </button>
-            )}
-            <div className="w-8 h-8 rounded-lg bg-emerald-600/30 border border-emerald-500/40 text-emerald-400 flex items-center justify-center font-bold">
-              <Mountain className="w-4 h-4 text-emerald-400" />
-            </div>
-            <div>
-              <div className="text-xs font-bold text-white flex items-center gap-1.5 font-serif-brand">
-                <span>TREK & STAY</span>
-                <span className="text-stone-500">|</span>
-                <span className="text-amber-400 font-sans font-semibold text-[11px]">Upcoming Itinerary</span>
-              </div>
-              <div className="text-[10px] text-stone-400">
-                Kedarnath • Badrinath • Rishikesh (2nd–8th Oct)
-              </div>
+              <span className="text-stone-600">•</span>
+              <button
+                onClick={() => scrollToPage('pdf-page-2')}
+                className="px-2.5 py-1 rounded hover:bg-stone-800 hover:text-amber-400 transition"
+              >
+                2. Days 0-3
+              </button>
+              <span className="text-stone-600">•</span>
+              <button
+                onClick={() => scrollToPage('pdf-page-3')}
+                className="px-2.5 py-1 rounded hover:bg-stone-800 hover:text-amber-400 transition"
+              >
+                3. Days 4-7
+              </button>
+              <span className="text-stone-600">•</span>
+              <button
+                onClick={() => scrollToPage('pdf-page-4')}
+                className="px-2.5 py-1 rounded hover:bg-stone-800 hover:text-amber-400 transition"
+              >
+                4. Inclusions & Stays
+              </button>
+              <span className="text-stone-600">•</span>
+              <button
+                onClick={() => scrollToPage('pdf-page-5')}
+                className="px-2.5 py-1 rounded hover:bg-stone-800 hover:text-amber-400 transition font-semibold text-amber-300"
+              >
+                5. Pricing & UPI Pay
+              </button>
+            </nav>
+
+            {/* Action Tools */}
+            <div className="flex items-center gap-2 flex-wrap">
+              {/* Theme Toggle */}
+              <button
+                onClick={() => setDocTheme(docTheme === 'light' ? 'dark' : 'light')}
+                className="p-1.5 rounded-lg bg-stone-800 hover:bg-stone-700 text-stone-300 border border-stone-700 transition cursor-pointer"
+                title="Toggle Light / Dark reading mode"
+              >
+                {docTheme === 'light' ? <Moon className="w-4 h-4 text-amber-400" /> : <Sun className="w-4 h-4 text-amber-400" />}
+              </button>
+
+              {/* Download / Save as PDF Button */}
+              <button
+                onClick={handleDownloadPdf}
+                disabled={isGeneratingPdf}
+                className="px-3.5 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-500 disabled:opacity-50 text-white text-xs font-bold flex items-center gap-1.5 shadow-md hover:shadow-lg transition transform active:scale-95 cursor-pointer"
+                title="Download full 5-page A4 PDF brochure"
+              >
+                <Download className="w-4 h-4" />
+                <span>{isGeneratingPdf ? 'Rendering PDF...' : 'Download PDF'}</span>
+              </button>
+
+              {/* Print Button */}
+              <button
+                onClick={handlePrint}
+                className="hidden sm:flex px-3 py-1.5 rounded-lg bg-stone-800 hover:bg-stone-700 text-stone-200 border border-stone-700 text-xs font-semibold items-center gap-1.5 transition cursor-pointer"
+                title="Print document"
+              >
+                <Printer className="w-3.5 h-3.5" />
+                <span>Print</span>
+              </button>
+
+              {/* Instant Book / Pay Button */}
+              <button
+                onClick={() => openBookingModalForPackage('bangalore')}
+                className="px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white text-xs font-bold flex items-center gap-1.5 shadow transition cursor-pointer"
+              >
+                <QrCode className="w-3.5 h-3.5" />
+                <span>Book & Pay QR</span>
+              </button>
+
+              {/* WhatsApp */}
+              <a
+                href={`https://wa.me/${TRIP_META.whatsappNumber}?text=${whatsappMessage}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-1.5 rounded-lg bg-emerald-700 hover:bg-emerald-600 text-white transition"
+                title="WhatsApp Enquiry"
+              >
+                <MessageCircle className="w-4 h-4" />
+              </a>
             </div>
           </div>
-
-          {/* Quick Page Jump Links */}
-          <nav className="hidden md:flex items-center gap-1 text-xs text-stone-300">
-            <button
-              onClick={() => scrollToPage('pdf-page-1')}
-              className="px-2.5 py-1 rounded hover:bg-stone-800 hover:text-amber-400 transition"
-            >
-              1. Overview
-            </button>
-            <span className="text-stone-600">•</span>
-            <button
-              onClick={() => scrollToPage('pdf-page-2')}
-              className="px-2.5 py-1 rounded hover:bg-stone-800 hover:text-amber-400 transition"
-            >
-              2. Days 0-3
-            </button>
-            <span className="text-stone-600">•</span>
-            <button
-              onClick={() => scrollToPage('pdf-page-3')}
-              className="px-2.5 py-1 rounded hover:bg-stone-800 hover:text-amber-400 transition"
-            >
-              3. Days 4-7
-            </button>
-            <span className="text-stone-600">•</span>
-            <button
-              onClick={() => scrollToPage('pdf-page-4')}
-              className="px-2.5 py-1 rounded hover:bg-stone-800 hover:text-amber-400 transition"
-            >
-              4. Inclusions & Stays
-            </button>
-            <span className="text-stone-600">•</span>
-            <button
-              onClick={() => scrollToPage('pdf-page-5')}
-              className="px-2.5 py-1 rounded hover:bg-stone-800 hover:text-amber-400 transition font-semibold text-amber-300"
-            >
-              5. Pricing & UPI Pay
-            </button>
-          </nav>
-
-          {/* Action Tools */}
-          <div className="flex items-center gap-2 flex-wrap">
-            {/* Theme Toggle */}
-            <button
-              onClick={() => setDocTheme(docTheme === 'light' ? 'dark' : 'light')}
-              className="p-1.5 rounded-lg bg-stone-800 hover:bg-stone-700 text-stone-300 border border-stone-700 transition cursor-pointer"
-              title="Toggle Light / Dark reading mode"
-            >
-              {docTheme === 'light' ? <Moon className="w-4 h-4 text-amber-400" /> : <Sun className="w-4 h-4 text-amber-400" />}
-            </button>
-
-            {/* Download / Save as PDF Button */}
-            <button
-              onClick={handleDownloadPdf}
-              disabled={isGeneratingPdf}
-              className="px-3.5 py-1.5 rounded-lg bg-amber-600 hover:bg-amber-500 disabled:opacity-50 text-white text-xs font-bold flex items-center gap-1.5 shadow-md hover:shadow-lg transition transform active:scale-95 cursor-pointer"
-              title="Download full 5-page A4 PDF brochure"
-            >
-              <Download className="w-4 h-4" />
-              <span>{isGeneratingPdf ? 'Rendering PDF...' : 'Download PDF'}</span>
-            </button>
-
-            {/* Print Button */}
-            <button
-              onClick={handlePrint}
-              className="hidden sm:flex px-3 py-1.5 rounded-lg bg-stone-800 hover:bg-stone-700 text-stone-200 border border-stone-700 text-xs font-semibold items-center gap-1.5 transition cursor-pointer"
-              title="Print document"
-            >
-              <Printer className="w-3.5 h-3.5" />
-              <span>Print</span>
-            </button>
-
-            {/* Instant Book / Pay Button */}
-            <button
-              onClick={() => openBookingModalForPackage('bangalore')}
-              className="px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-400 text-white text-xs font-bold flex items-center gap-1.5 shadow transition cursor-pointer"
-            >
-              <QrCode className="w-3.5 h-3.5" />
-              <span>Book & Pay QR</span>
-            </button>
-
-            {/* WhatsApp */}
-            <a
-              href={`https://wa.me/${TRIP_META.whatsappNumber}?text=${whatsappMessage}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-1.5 rounded-lg bg-emerald-700 hover:bg-emerald-600 text-white transition"
-              title="WhatsApp Enquiry"
-            >
-              <MessageCircle className="w-4 h-4" />
-            </a>
-          </div>
-        </div>
-      </header>
+        </header>
+      )}
 
       {/* =========================================================================
           MAIN DOCUMENT BODY: 5 FULL-SIZED EXPEDITION PAGES (A4 PROPORTIONAL)

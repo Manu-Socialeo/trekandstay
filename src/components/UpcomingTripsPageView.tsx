@@ -1,6 +1,33 @@
-import { useState, useEffect } from 'react';
-import { ArrowLeft, ArrowUpRight, Calendar, MapPin, Users, Sparkles, Clock, ShieldCheck, PhoneCall, QrCode } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import {
+  ArrowLeft,
+  ArrowUpRight,
+  Calendar,
+  MapPin,
+  Users,
+  Sparkles,
+  Clock,
+  ShieldCheck,
+  PhoneCall,
+  QrCode,
+  Download,
+  FileText,
+  CheckCircle2,
+  Mountain,
+  Waves,
+  MessageCircle,
+  CreditCard,
+  Flame,
+  Gift,
+  ExternalLink,
+  ChevronRight,
+  Printer,
+  Compass
+} from 'lucide-react';
 import { destinationsData, DestinationDetail } from '../data/destinationsData';
+import { DocumentBrochureView } from './DocumentBrochureView';
+import { exportBrochureToPdf, openPrintOptimizedWindow } from '../utils/pdfExport';
+import { TRIP_META } from '../data/tripData';
 
 interface UpcomingTripsPageViewProps {
   onOpenBooking: (destinationTitle?: string, price?: string) => void;
@@ -21,10 +48,24 @@ export interface UpcomingTripBatch {
   availableSlots: number;
   status: 'Filling Fast' | 'Available' | 'Few Slots Left' | 'Almost Full';
   badge?: string;
+  isDodhamSpecial?: boolean;
 }
 
-// Default initial upcoming batches schedule
 export const initialUpcomingTrips: UpcomingTripBatch[] = [
+  {
+    id: 'batch-dodham-oct-1',
+    title: 'Dodham Yatra & Adventure Special (Kedarnath • Badrinath • Rishikesh)',
+    destinationSlug: 'kedarnath-badrinath-do-dham',
+    dateRange: 'October 02 - October 08, 2026',
+    month: 'October 2026',
+    duration: '7D/6N',
+    price: '₹17,500 (Delhi) / ₹34,000 (BLR Flight)',
+    departureHub: 'Bangalore (Flight) / Delhi (Transit)',
+    availableSlots: 6,
+    status: 'Few Slots Left',
+    badge: '🌟 Flagship Expedition',
+    isDodhamSpecial: true
+  },
   {
     id: 'batch-mh-monsoon-1',
     title: 'Maharashtra Monsoon Trails (Konkan Kada & Kalu Falls)',
@@ -110,189 +151,531 @@ export function UpcomingTripsPageView({
   onNavigateHome,
   onOpenPayment
 }: UpcomingTripsPageViewProps) {
+  // Tabs: 'calendar' (Batches) | 'brochure' (Dodham Master Brochure)
+  const [activeTab, setActiveTab] = useState<'calendar' | 'brochure'>('calendar');
   const [selectedMonth, setSelectedMonth] = useState<string>('all');
-  const [trips, setTrips] = useState<UpcomingTripBatch[]>(initialUpcomingTrips);
+  const [trips] = useState<UpcomingTripBatch[]>(initialUpcomingTrips);
+
+  // PDF Export generation state in Upcoming Trips
+  const [isGeneratingPdf, setIsGeneratingPdf] = useState(false);
+  const [pdfProgressText, setPdfProgressText] = useState('');
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    document.title = 'Upcoming Trips & Batch Calendar | Trek & Stay';
+    document.title = 'Upcoming Trips & Dodham PDF Brochure | Trek & Stay';
+
+    // Hash check for direct brochure link
+    const hash = window.location.hash.toLowerCase();
+    if (
+      hash.includes('dodham') ||
+      hash.includes('brochure') ||
+      hash.includes('itinerary')
+    ) {
+      setActiveTab('brochure');
+    }
   }, []);
 
-  const filteredTrips = selectedMonth === 'all' 
-    ? trips 
+  const handleDownloadDodhamPdf = async () => {
+    setIsGeneratingPdf(true);
+    setPdfProgressText('Initializing Dodham A4 PDF layout...');
+    
+    // Switch to brochure tab if not already there so PDF elements are active in DOM
+    if (activeTab !== 'brochure') {
+      setActiveTab('brochure');
+      await new Promise(r => setTimeout(r, 400));
+    }
+
+    try {
+      await exportBrochureToPdf((step) => {
+        setPdfProgressText(step);
+      });
+      setPdfProgressText('Brochure PDF downloaded successfully!');
+      setTimeout(() => {
+        setIsGeneratingPdf(false);
+        setPdfProgressText('');
+      }, 2000);
+    } catch {
+      setPdfProgressText('Opening Print / Save as PDF view...');
+      setTimeout(() => {
+        setIsGeneratingPdf(false);
+        setPdfProgressText('');
+        openPrintOptimizedWindow();
+      }, 1000);
+    }
+  };
+
+  const handleOpenBrochureTab = () => {
+    setActiveTab('brochure');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const filteredTrips = selectedMonth === 'all'
+    ? trips
     : trips.filter(t => t.month.toLowerCase().includes(selectedMonth.toLowerCase()));
 
-  return (
-    <div className="min-h-screen bg-white text-slate-900 pt-28 pb-20 px-4 sm:px-6 md:px-12 animate-fade-in">
-      <div className="max-w-7xl mx-auto">
-        
-        {/* Navigation Breadcrumb */}
-        <div className="flex items-center justify-between gap-4 mb-8">
-          <button 
-            onClick={() => onNavigateHome('home')}
-            className="flex items-center gap-2 text-xs font-bold text-emerald-600 hover:text-emerald-700 transition-colors group cursor-pointer bg-slate-50 px-4 py-2 rounded-full border border-slate-200 shadow-xs"
-          >
-            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-            <span>Back to Home</span>
-          </button>
+  const dodhamWhatsappUrl = `https://wa.me/${TRIP_META.whatsappNumber}?text=${encodeURIComponent(
+    "Hi Trek & Stay, I would like to inquire/book the Dodham Yatra & Adventure Special (2nd-8th Oct 2026)."
+  )}`;
 
+  return (
+    <div className="min-h-screen bg-slate-950 text-slate-100 pt-24 pb-20 animate-fade-in font-sans">
+      
+      {/* =========================================================================
+          TOP ACTION BAR & BREADCRUMB
+      ========================================================================= */}
+      <div className="border-b border-white/10 bg-slate-900/80 backdrop-blur-md sticky top-14 lg:top-16 z-30 px-4 sm:px-8 py-3">
+        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+          
+          <div className="flex items-center gap-3">
+            <button 
+              onClick={() => onNavigateHome('home')}
+              className="flex items-center gap-1.5 text-xs font-bold text-slate-300 hover:text-white transition-colors bg-white/5 hover:bg-white/10 px-3.5 py-1.5 rounded-full border border-white/10 cursor-pointer"
+            >
+              <ArrowLeft className="w-3.5 h-3.5" />
+              <span>Back to Home</span>
+            </button>
+
+            <span className="text-xs text-slate-400 font-medium hidden md:inline">
+              Upcoming Expeditions & Sacred Yatras 2026
+            </span>
+          </div>
+
+          {/* Quick Tab Switcher */}
+          <div className="flex items-center gap-2 bg-slate-950/80 p-1 rounded-full border border-white/10">
+            <button
+              onClick={() => setActiveTab('calendar')}
+              className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                activeTab === 'calendar'
+                  ? 'bg-emerald-600 text-white shadow-md'
+                  : 'text-slate-400 hover:text-white'
+              }`}
+            >
+              <Calendar className="w-3.5 h-3.5" />
+              <span>Batches Calendar</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab('brochure')}
+              className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                activeTab === 'brochure'
+                  ? 'bg-amber-500 text-slate-950 shadow-md'
+                  : 'text-amber-300 hover:text-white'
+              }`}
+            >
+              <FileText className="w-3.5 h-3.5" />
+              <span>Dodham PDF & Itinerary</span>
+            </button>
+          </div>
+
+          {/* Quick PDF & UPI CTA */}
           <div className="flex items-center gap-2">
+            <button
+              onClick={handleDownloadDodhamPdf}
+              disabled={isGeneratingPdf}
+              className="flex items-center gap-1.5 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-white px-3.5 py-1.5 rounded-full text-xs font-bold shadow-md transition-all cursor-pointer active:scale-95 disabled:opacity-50"
+              title="Download official Dodham PDF brochure"
+            >
+              <Download className="w-3.5 h-3.5" />
+              <span>{isGeneratingPdf ? 'Rendering PDF...' : 'Download Dodham PDF'}</span>
+            </button>
+
             {onOpenPayment && (
               <button
                 onClick={onOpenPayment}
-                className="flex items-center gap-1.5 bg-slate-900 hover:bg-slate-800 text-white px-3.5 py-1.5 rounded-full text-xs font-bold shadow-xs cursor-pointer"
+                className="hidden sm:flex items-center gap-1.5 bg-white/10 hover:bg-emerald-600/30 border border-white/20 text-white px-3 py-1.5 rounded-full text-xs font-semibold tracking-wide transition-all cursor-pointer"
               >
                 <QrCode className="w-3.5 h-3.5 text-emerald-400" />
-                <span>UPI Pay / QR</span>
+                <span>UPI Pay</span>
               </button>
             )}
-            <span className="text-xs text-slate-500 font-medium hidden sm:inline">
-              Showing <strong className="text-slate-900">{filteredTrips.length}</strong> upcoming batches
-            </span>
           </div>
         </div>
+      </div>
 
-        {/* Hero Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-1.5 border border-emerald-200 bg-emerald-50 rounded-full px-4 py-1 text-[11px] font-extrabold text-emerald-700 mb-4 tracking-wide shadow-2xs">
-            <Calendar className="w-3.5 h-3.5" />
-            <span>Scheduled Batch Departures 2026</span>
-          </div>
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-tight text-slate-900 mb-4">
-            Upcoming Trips & Trek Batches
-          </h1>
-          <p className="text-slate-600 text-xs sm:text-sm md:text-base leading-relaxed">
-            Choose your preferred weekend batch or long expedition. All batches include comfortable transit, verified stays, certified mountain captains, hot local meals, and permits.
-          </p>
+      {/* Global PDF Generation Progress Banner */}
+      {isGeneratingPdf && (
+        <div className="bg-amber-500 text-slate-950 px-4 py-2.5 text-center text-xs font-extrabold flex items-center justify-center gap-2 shadow-lg animate-pulse sticky top-28 z-40">
+          <Download className="w-4 h-4 animate-bounce" />
+          <span>{pdfProgressText || 'Rendering 5-Page High Resolution PDF Brochure...'}</span>
         </div>
+      )}
 
-        {/* Month Filter Tabs */}
-        <div className="flex justify-center flex-wrap gap-2 mb-10">
-          {[
-            { label: 'All Batches', val: 'all' },
-            { label: 'July 2026', val: 'july' },
-            { label: 'August 2026', val: 'august' },
-            { label: 'September 2026', val: 'september' }
-          ].map((item) => (
-            <button
-              key={item.val}
-              onClick={() => setSelectedMonth(item.val)}
-              className={`px-5 py-2.5 rounded-full text-xs font-bold transition-all cursor-pointer ${
-                selectedMonth === item.val
-                  ? 'bg-slate-950 text-white shadow-md'
-                  : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
-              }`}
-            >
-              {item.label}
-            </button>
-          ))}
-        </div>
+      {/* =========================================================================
+          FEATURED DODHAM YATRA & PDF DOWNLOADER SHOWCASE (Top Banner)
+      ========================================================================= */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 pt-8 pb-4">
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-stone-900 via-slate-900 to-amber-950 border border-amber-500/40 shadow-2xl p-6 sm:p-8 lg:p-10">
+          
+          {/* Subtle Himalayan Mountain Backdrop */}
+          <div 
+            className="absolute inset-0 opacity-15 bg-cover bg-center pointer-events-none mix-blend-luminosity"
+            style={{
+              backgroundImage: `url('https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1600&auto=format&fit=crop')`
+            }}
+          />
+          <div className="absolute top-0 right-0 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
 
-        {/* Upcoming Trips Grid / List */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-          {filteredTrips.map((trip) => {
-            const matchedDest = destinationsData.find(d => d.slug === trip.destinationSlug || d.id === trip.destinationSlug);
+          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            
+            {/* Left Content Column */}
+            <div className="lg:col-span-7 space-y-4">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-amber-500/20 text-amber-300 border border-amber-500/40 flex items-center gap-1.5">
+                  <Flame className="w-3 h-3 text-amber-400" />
+                  <span>Flagship Sacred Yatra 2026</span>
+                </span>
+                <span className="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                  <span>Dates: 2nd – 8th October (7D / 6N)</span>
+                </span>
+              </div>
 
-            return (
-              <div 
-                key={trip.id}
-                className="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between relative group hover:border-slate-300"
-              >
-                <div>
-                  {/* Status & Badge Top Bar */}
-                  <div className="flex items-center justify-between gap-2 mb-3">
-                    {trip.badge ? (
-                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-emerald-100 text-emerald-800">
-                        {trip.badge}
-                      </span>
-                    ) : <div />}
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight leading-tight">
+                Dodham Yatra + Adventure Special
+                <span className="block text-amber-400 text-lg sm:text-xl lg:text-2xl font-bold mt-1">
+                  Kedarnath • Badrinath • Rishikesh Rafting • Haridwar Aarti
+                </span>
+              </h1>
 
-                    <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
-                      trip.status === 'Few Slots Left' 
-                        ? 'bg-red-100 text-red-700'
-                        : trip.status === 'Filling Fast'
-                        ? 'bg-amber-100 text-amber-800'
-                        : 'bg-slate-100 text-slate-700'
-                    }`}>
-                      {trip.status} ({trip.availableSlots} slots left)
-                    </span>
+              <p className="text-slate-300 text-xs sm:text-sm leading-relaxed max-w-2xl">
+                Official high-altitude pilgrimage and adventure expedition curated by Trek & Stay. Includes Sonprayag basecamp stays, Gaurikund trek assistance, Mana First Village tour, 16 KM Shivpuri white water rafting, and 3A sleeper / Bangalore flight coordination.
+              </p>
+
+              {/* Highlights Pill Badges */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 pt-1">
+                <div className="flex items-center gap-2 text-[11px] text-slate-200 bg-white/5 border border-white/10 px-3 py-2 rounded-xl">
+                  <Mountain className="w-4 h-4 text-amber-400 shrink-0" />
+                  <span className="font-semibold">Kedarnath 11,755 ft</span>
+                </div>
+                <div className="flex items-center gap-2 text-[11px] text-slate-200 bg-white/5 border border-white/10 px-3 py-2 rounded-xl">
+                  <Waves className="w-4 h-4 text-cyan-400 shrink-0" />
+                  <span className="font-semibold">16 KM River Rafting</span>
+                </div>
+                <div className="flex items-center gap-2 text-[11px] text-slate-200 bg-white/5 border border-white/10 px-3 py-2 rounded-xl">
+                  <Gift className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <span className="font-semibold">Book 6 → 1 Free Slot</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Action & PDF Downloader Card */}
+            <div className="lg:col-span-5">
+              <div className="bg-slate-900/90 backdrop-blur-xl border border-amber-500/30 rounded-2xl p-5 sm:p-6 shadow-xl space-y-4">
+                
+                <div className="flex items-center justify-between pb-3 border-b border-white/10">
+                  <div>
+                    <span className="text-[10px] uppercase tracking-wider text-slate-400 font-bold block">Official Brochure & Package</span>
+                    <span className="text-lg font-black text-amber-300">Dodham Master PDF Hub</span>
                   </div>
+                  <span className="text-[11px] font-bold text-emerald-400 bg-emerald-950/60 border border-emerald-500/30 px-2.5 py-1 rounded-full">
+                    A4 Print-Ready
+                  </span>
+                </div>
 
-                  {/* Title */}
-                  <h3 className="font-extrabold text-slate-900 text-lg leading-snug mb-3 group-hover:text-emerald-700 transition-colors">
-                    {trip.title}
-                  </h3>
-
-                  {/* Key Trip Meta */}
-                  <div className="space-y-2 text-xs text-slate-600 mb-6 bg-slate-50/80 p-4 rounded-2xl border border-slate-100">
-                    <div className="flex items-center gap-2">
-                      <Calendar className="w-4 h-4 text-emerald-600 shrink-0" />
-                      <span className="font-semibold text-slate-800">{trip.dateRange}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Clock className="w-4 h-4 text-slate-400 shrink-0" />
-                      <span>Duration: <strong>{trip.duration}</strong></span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <MapPin className="w-4 h-4 text-slate-400 shrink-0" />
-                      <span className="truncate">Pickup: {trip.departureHub}</span>
-                    </div>
+                {/* Pricing Summary */}
+                <div className="grid grid-cols-2 gap-2 text-xs">
+                  <div className="bg-white/5 p-3 rounded-xl border border-white/5">
+                    <span className="text-[10px] text-slate-400 uppercase font-bold block">Delhi Package</span>
+                    <span className="text-base font-black text-white">₹17,500</span>
+                    <span className="text-[10px] text-slate-400 block">Delhi ↔ Haridwar 3A</span>
+                  </div>
+                  <div className="bg-white/5 p-3 rounded-xl border border-white/5">
+                    <span className="text-[10px] text-slate-400 uppercase font-bold block">Bangalore Package</span>
+                    <span className="text-base font-black text-white">₹34,000</span>
+                    <span className="text-[10px] text-slate-400 block">With Flight Support</span>
                   </div>
                 </div>
 
-                {/* Card Footer: Price & Actions */}
-                <div className="pt-4 border-t border-slate-100 flex items-center justify-between gap-3">
-                  <div>
-                    <span className="text-[10px] uppercase font-bold text-slate-400 block leading-none mb-1">Package Price</span>
-                    <span className="text-xl font-black text-slate-900">{trip.price}</span>
-                  </div>
+                {/* Primary Action Buttons */}
+                <div className="space-y-2.5 pt-1">
+                  {/* Direct PDF Download Button */}
+                  <button
+                    onClick={handleDownloadDodhamPdf}
+                    disabled={isGeneratingPdf}
+                    className="w-full py-3 px-4 bg-gradient-to-r from-amber-600 via-amber-500 to-yellow-500 hover:from-amber-500 hover:to-yellow-400 text-slate-950 font-black text-xs rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-98 disabled:opacity-50"
+                  >
+                    <Download className="w-4 h-4 text-slate-950" />
+                    <span>{isGeneratingPdf ? 'Generating PDF...' : 'Download Dodham PDF Brochure'}</span>
+                  </button>
 
-                  <div className="flex items-center gap-2">
-                    {matchedDest && onSelectDestination && (
-                      <button
-                        type="button"
-                        onClick={() => onSelectDestination(matchedDest)}
-                        className="p-2.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors cursor-pointer"
-                        title="View Details"
-                      >
-                        <ArrowUpRight className="w-4 h-4" />
-                      </button>
-                    )}
+                  {/* Interactive Brochure View Tab Trigger */}
+                  <button
+                    onClick={handleOpenBrochureTab}
+                    className="w-full py-2.5 px-4 bg-white/10 hover:bg-white/15 text-white font-bold text-xs rounded-xl border border-white/20 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    <FileText className="w-4 h-4 text-amber-300" />
+                    <span>View Interactive 7-Day Dodham Itinerary</span>
+                  </button>
+
+                  {/* WhatsApp Quick Link */}
+                  <div className="flex gap-2">
+                    <a
+                      href={dodhamWhatsappUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="flex-1 py-2 px-3 bg-emerald-600/30 hover:bg-emerald-600/40 border border-emerald-500/40 text-emerald-300 font-bold text-xs rounded-xl transition flex items-center justify-center gap-1.5"
+                    >
+                      <MessageCircle className="w-3.5 h-3.5 text-emerald-400" />
+                      <span>WhatsApp Info</span>
+                    </a>
 
                     <button
-                      type="button"
-                      onClick={() => onOpenBooking(trip.title, trip.price)}
-                      className="bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 px-4 rounded-full text-xs transition-all shadow-md active:scale-95 cursor-pointer flex items-center gap-1.5"
+                      onClick={() => onOpenBooking('Dodham Yatra + Adventure Special (2nd-8th Oct)', '₹17,500')}
+                      className="flex-1 py-2 px-3 bg-white hover:bg-slate-100 text-slate-950 font-bold text-xs rounded-xl transition flex items-center justify-center gap-1.5 cursor-pointer"
                     >
-                      <span>Book Slot</span>
+                      <CreditCard className="w-3.5 h-3.5 text-slate-900" />
+                      <span>Reserve Slot</span>
                     </button>
                   </div>
                 </div>
-              </div>
-            );
-          })}
-        </div>
 
-        {/* Custom Batch / Group Departure Banner */}
-        <div className="bg-slate-950 text-white rounded-[32px] p-8 sm:p-12 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="max-w-xl">
-            <span className="px-3 py-1 bg-white/10 rounded-full text-emerald-400 font-bold text-[11px] uppercase tracking-wider mb-3 inline-block">
-              Custom Dates Available
-            </span>
-            <h3 className="text-2xl sm:text-3xl font-extrabold mb-2">Want a Private Batch or Corporate Trek?</h3>
+                <div className="text-[10px] text-slate-400 text-center flex items-center justify-center gap-1">
+                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>₹5,000 Token Advance Confirms Slot • Verified Permits & Stays</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      {/* =========================================================================
+          TAB CONTENT AREA
+      ========================================================================= */}
+      {activeTab === 'calendar' ? (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 pt-6">
+          
+          {/* Header & Subtitle */}
+          <div className="text-center max-w-3xl mx-auto mb-8">
+            <div className="inline-flex items-center gap-1.5 border border-emerald-500/30 bg-emerald-950/40 rounded-full px-4 py-1 text-[11px] font-extrabold text-emerald-400 mb-3 tracking-wide">
+              <Calendar className="w-3.5 h-3.5" />
+              <span>Upcoming Batches Schedule 2026</span>
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-black tracking-tight text-white mb-2">
+              All Scheduled Departure Batches
+            </h2>
             <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">
-              We curate custom departure dates from Bengaluru, Pune, Mumbai, or direct campsite pickups for private groups of 6+ trekkers with dedicated guides and tailored logistics.
+              Explore upcoming weekend escapes, waterfall rappelling trails in the Sahyadris, and sacred Himalayan expeditions. Every batch includes transit, verified accommodations, local hot meals, and certified trek captains.
             </p>
           </div>
-          <button
-            onClick={() => onOpenBooking('Custom Private Group Batch', 'Custom')}
-            className="bg-white hover:bg-slate-100 text-slate-950 font-bold py-3.5 px-8 rounded-full text-xs transition-all shadow-lg active:scale-95 shrink-0 cursor-pointer"
-          >
-            Request Custom Batch
-          </button>
-        </div>
 
-      </div>
+          {/* Month Filter Tabs */}
+          <div className="flex justify-center flex-wrap gap-2 mb-8">
+            {[
+              { label: 'All Batches', val: 'all' },
+              { label: 'July 2026', val: 'july' },
+              { label: 'August 2026', val: 'august' },
+              { label: 'September 2026', val: 'september' },
+              { label: 'October 2026 (Dodham)', val: 'october' }
+            ].map((item) => (
+              <button
+                key={item.val}
+                onClick={() => setSelectedMonth(item.val)}
+                className={`px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer ${
+                  selectedMonth === item.val
+                    ? 'bg-white text-slate-950 shadow-md font-black'
+                    : 'bg-slate-900 text-slate-400 hover:text-white border border-white/10'
+                }`}
+              >
+                {item.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Batches Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-14">
+            {filteredTrips.map((trip) => {
+              const matchedDest = destinationsData.find(
+                (d) => d.slug === trip.destinationSlug || d.id === trip.destinationSlug
+              );
+
+              return (
+                <div 
+                  key={trip.id}
+                  className={`rounded-3xl p-6 shadow-sm hover:shadow-2xl transition-all duration-300 flex flex-col justify-between relative group ${
+                    trip.isDodhamSpecial
+                      ? 'bg-gradient-to-b from-stone-900 to-slate-950 border-2 border-amber-500/60 ring-2 ring-amber-500/20'
+                      : 'bg-slate-900/90 border border-white/10 hover:border-white/20'
+                  }`}
+                >
+                  <div>
+                    {/* Status & Badge Top Bar */}
+                    <div className="flex items-center justify-between gap-2 mb-3">
+                      {trip.badge ? (
+                        <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider ${
+                          trip.isDodhamSpecial 
+                            ? 'bg-amber-500/20 text-amber-300 border border-amber-500/40' 
+                            : 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30'
+                        }`}>
+                          {trip.badge}
+                        </span>
+                      ) : <div />}
+
+                      <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
+                        trip.status === 'Few Slots Left' 
+                          ? 'bg-red-500/20 text-red-400 border border-red-500/30'
+                          : trip.status === 'Filling Fast'
+                          ? 'bg-amber-500/20 text-amber-300 border border-amber-500/30'
+                          : 'bg-slate-800 text-slate-300'
+                      }`}>
+                        {trip.status} ({trip.availableSlots} slots left)
+                      </span>
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="font-extrabold text-white text-lg leading-snug mb-3 group-hover:text-emerald-400 transition-colors">
+                      {trip.title}
+                    </h3>
+
+                    {/* Key Trip Meta */}
+                    <div className="space-y-2 text-xs text-slate-300 mb-6 bg-slate-950/60 p-4 rounded-2xl border border-white/5">
+                      <div className="flex items-center gap-2">
+                        <Calendar className="w-4 h-4 text-emerald-400 shrink-0" />
+                        <span className="font-semibold text-white">{trip.dateRange}</span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <Clock className="w-4 h-4 text-slate-400 shrink-0" />
+                        <span>Duration: <strong>{trip.duration}</strong></span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <MapPin className="w-4 h-4 text-slate-400 shrink-0" />
+                        <span className="truncate">Departure: {trip.departureHub}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Card Footer: Price & Actions */}
+                  <div className="pt-4 border-t border-white/10 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <span className="text-[10px] uppercase font-bold text-slate-400 block leading-none mb-1">
+                          Package Price
+                        </span>
+                        <span className="text-lg font-black text-white">{trip.price}</span>
+                      </div>
+
+                      {matchedDest && onSelectDestination && (
+                        <button
+                          type="button"
+                          onClick={() => onSelectDestination(matchedDest)}
+                          className="p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition cursor-pointer"
+                          title="View Trip Details"
+                        >
+                          <ArrowUpRight className="w-4 h-4" />
+                        </button>
+                      )}
+                    </div>
+
+                    {/* Special Dodham Action Row */}
+                    {trip.isDodhamSpecial ? (
+                      <div className="grid grid-cols-2 gap-2">
+                        <button
+                          type="button"
+                          onClick={handleDownloadDodhamPdf}
+                          disabled={isGeneratingPdf}
+                          className="bg-amber-600 hover:bg-amber-500 text-white font-bold py-2.5 px-3 rounded-xl text-xs transition shadow-md active:scale-95 cursor-pointer flex items-center justify-center gap-1.5"
+                        >
+                          <Download className="w-3.5 h-3.5" />
+                          <span>Download PDF</span>
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={handleOpenBrochureTab}
+                          className="bg-white/10 hover:bg-white/20 text-amber-300 font-bold py-2.5 px-3 rounded-xl text-xs transition border border-amber-500/30 flex items-center justify-center gap-1.5 cursor-pointer"
+                        >
+                          <FileText className="w-3.5 h-3.5" />
+                          <span>View Brochure</span>
+                        </button>
+                      </div>
+                    ) : (
+                      <button
+                        type="button"
+                        onClick={() => onOpenBooking(trip.title, trip.price)}
+                        className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 px-4 rounded-xl text-xs transition-all shadow-md active:scale-95 cursor-pointer flex items-center justify-center gap-1.5"
+                      >
+                        <span>Book Slot</span>
+                        <ChevronRight className="w-4 h-4" />
+                      </button>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Custom Batch / Group Departure Banner */}
+          <div className="bg-slate-900 text-white border border-white/10 rounded-[32px] p-8 sm:p-10 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="max-w-xl">
+              <span className="px-3 py-1 bg-white/10 rounded-full text-emerald-400 font-bold text-[11px] uppercase tracking-wider mb-3 inline-block">
+                Custom Dates Available
+              </span>
+              <h3 className="text-xl sm:text-2xl font-extrabold mb-2">Want a Private Batch or Corporate Trek?</h3>
+              <p className="text-slate-400 text-xs sm:text-sm leading-relaxed">
+                We curate custom departure dates from Bengaluru, Pune, Mumbai, or direct campsite pickups for private groups of 6+ trekkers with dedicated guides and tailored logistics.
+              </p>
+            </div>
+            <button
+              onClick={() => onOpenBooking('Custom Private Group Batch', 'Custom')}
+              className="bg-white hover:bg-slate-100 text-slate-950 font-bold py-3.5 px-8 rounded-full text-xs transition-all shadow-lg active:scale-95 shrink-0 cursor-pointer"
+            >
+              Request Custom Batch
+            </button>
+          </div>
+
+        </div>
+      ) : (
+        /* =========================================================================
+            TAB 2: INTEGRATED DODHAM MASTER BROCHURE & PDF VIEWER
+        ========================================================================= */
+        <div className="max-w-7xl mx-auto px-2 sm:px-4 md:px-8 pt-4">
+          <div className="mb-4 bg-slate-900 border border-amber-500/40 rounded-2xl p-4 flex flex-wrap items-center justify-between gap-3">
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping" />
+              <span className="text-xs font-bold text-white">Viewing Official 5-Page Dodham Yatra & Adventure Brochure</span>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <button
+                onClick={handleDownloadDodhamPdf}
+                disabled={isGeneratingPdf}
+                className="bg-amber-500 hover:bg-amber-400 text-slate-950 font-black py-1.5 px-4 rounded-lg text-xs transition flex items-center gap-1.5 cursor-pointer shadow"
+              >
+                <Download className="w-3.5 h-3.5 text-slate-950" />
+                <span>{isGeneratingPdf ? 'Generating PDF...' : 'Download PDF Brochure'}</span>
+              </button>
+
+              <button
+                onClick={() => openPrintOptimizedWindow()}
+                className="bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-bold py-1.5 px-3 rounded-lg text-xs transition flex items-center gap-1.5 cursor-pointer"
+              >
+                <Printer className="w-3.5 h-3.5" />
+                <span>Print</span>
+              </button>
+
+              <button
+                onClick={() => setActiveTab('calendar')}
+                className="bg-white/10 hover:bg-white/20 text-slate-200 font-bold py-1.5 px-3 rounded-lg text-xs transition cursor-pointer"
+              >
+                ← Back to Batches Calendar
+              </button>
+            </div>
+          </div>
+
+          {/* Embedded Full Document Brochure */}
+          <div className="rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
+            <DocumentBrochureView
+              onNavigateHome={() => onNavigateHome('home')}
+              onOpenGlobalBooking={onOpenBooking}
+              onOpenGlobalPayment={onOpenPayment}
+              hideTopBar={false}
+            />
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }

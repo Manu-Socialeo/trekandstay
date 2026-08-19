@@ -41,7 +41,7 @@ export function Footer({ onOpenBooking, onOpenPayment, onNavigate }: FooterProps
             onClick={() => onNavigate('upcoming')}
             className="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-white rounded-full text-xs font-bold tracking-wide transition-all shadow-lg hover:shadow-amber-500/30 flex items-center justify-center gap-2 shrink-0 cursor-pointer active:scale-95"
           >
-            <span>View Full Itinerary</span>
+            <span>View Upcoming Trips & Dodham PDF</span>
             <ArrowRight className="w-4 h-4" />
           </button>
         </div>
@@ -80,7 +80,7 @@ export function Footer({ onOpenBooking, onOpenPayment, onNavigate }: FooterProps
                   className="text-amber-400 hover:text-amber-300 font-bold transition-colors cursor-pointer flex items-center gap-1.5"
                 >
                   <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
-                  <span>Upcoming Itinerary (Dodham)</span>
+                  <span>Upcoming Trips (Dodham PDF)</span>
                 </button>
               </li>
               <li><button onClick={() => onNavigate('packages')} className="hover:text-emerald-400 font-bold transition-colors cursor-pointer">Trek Packages</button></li>

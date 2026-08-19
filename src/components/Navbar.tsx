@@ -49,12 +49,12 @@ export function Navbar({ onOpenBooking, onOpenPayment, onNavigate, activeView }:
           <button 
             onClick={() => handleNavClick('upcoming')} 
             className={`transition-colors cursor-pointer flex items-center gap-1.5 ${activeView === 'upcoming' ? 'text-emerald-400 font-bold' : 'text-white/80 hover:text-white'}`}
-            title="Dodham Yatra & Adventure Itinerary (2nd–8th Oct)"
+            title="Upcoming Trips & Dodham Yatra PDF Itinerary (2nd–8th Oct)"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span>Upcoming Itinerary</span>
+            <span>Upcoming Trips</span>
             <span className="hidden xl:inline-block bg-amber-500/20 text-amber-300 text-[10px] font-bold px-1.5 py-0.5 rounded border border-amber-500/30">
-              Dodham
+              Dodham PDF
             </span>
           </button>
           <button 
@@ -105,7 +105,7 @@ export function Navbar({ onOpenBooking, onOpenPayment, onNavigate, activeView }:
 
         {/* Right Header CTAs */}
         <div className="hidden md:flex items-center gap-2.5">
-          {/* Prominent Upcoming Itinerary Action Button */}
+          {/* Prominent Upcoming Trips Action Button */}
           <button
             onClick={() => handleNavClick('upcoming')}
             className={`flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-bold tracking-wide transition-all shadow-md cursor-pointer border ${
@@ -113,12 +113,12 @@ export function Navbar({ onOpenBooking, onOpenPayment, onNavigate, activeView }:
                 ? 'bg-amber-500 text-slate-950 border-amber-300 ring-2 ring-amber-400/50'
                 : 'bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-white border-amber-400/40 hover:shadow-amber-500/25'
             }`}
-            title="View Dodham Yatra & Adventure Special (2nd–8th Oct)"
+            title="View Upcoming Trips & Dodham Yatra PDF Brochure"
           >
             <span className="w-2 h-2 rounded-full bg-white animate-pulse"></span>
-            <span>Upcoming Itinerary</span>
+            <span>Upcoming Trips</span>
             <span className="bg-amber-950/40 text-amber-200 text-[10px] font-extrabold px-1.5 py-0.2 rounded-full hidden xl:inline">
-              Oct 2-8
+              Dodham PDF
             </span>
           </button>
 
@@ -168,7 +168,7 @@ export function Navbar({ onOpenBooking, onOpenPayment, onNavigate, activeView }:
             }`}
           >
             <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
-            <span>Itinerary</span>
+            <span>Upcoming Trips</span>
           </button>
 
           {/* Compact Mobile Book Now */}
@@ -208,7 +208,7 @@ export function Navbar({ onOpenBooking, onOpenPayment, onNavigate, activeView }:
 
           <div className="grid grid-cols-2 gap-2 text-[11px]">
             <button onClick={() => handleNavClick('upcoming')} className="p-3 rounded-xl bg-emerald-600/30 border border-emerald-500/40 text-left text-emerald-300 font-bold hover:bg-emerald-600/40 flex items-center gap-2">
-              <span>📅 Upcoming Itinerary</span>
+              <span>📅 Upcoming Trips (Dodham PDF)</span>
             </button>
             <button onClick={() => handleNavClick('packages')} className="p-3 rounded-xl bg-white/5 text-left text-white hover:bg-white/10 flex items-center gap-2">
               <span>🏔️ All Packages</span>
