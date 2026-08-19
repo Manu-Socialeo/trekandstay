@@ -1143,32 +1143,33 @@ export const DocumentBrochureView: React.FC<DocumentBrochureViewProps> = ({
                 Official Account: <strong>{TRIP_META.upiPayeeName}</strong> • {TRIP_META.bankName}
               </div>
 
-              {/* Verified UPI ID Badge */}
-              <div className="flex justify-center items-center gap-2 mb-4 flex-wrap text-xs">
+              {/* Verified Official UPI ID Badge */}
+              <div className="flex justify-center items-center gap-2 mb-2 flex-wrap text-xs">
                 <div className="bg-amber-50 dark:bg-amber-950/50 border-2 border-amber-400 dark:border-amber-600 px-3.5 py-1.5 rounded-xl flex items-center gap-2 text-amber-950 dark:text-amber-200 shadow-sm">
                   <span className="font-bold uppercase tracking-wider text-[10px] text-amber-800 dark:text-amber-400">Official UPI ID:</span>
                   <span className="font-mono-num font-extrabold text-xs text-stone-900 dark:text-white">{TRIP_META.upiId}</span>
                 </div>
               </div>
-
-              <div className="flex justify-center gap-6 sm:gap-10 items-center flex-wrap">
-                {delhiQrUrl && (
-                  <div className="bg-white p-3 rounded-xl border border-stone-300 shadow-md text-stone-900 text-center">
-                    <img src={delhiQrUrl} alt="Delhi Plan QR Code" className="w-32 h-32 mx-auto rounded" />
-                    <span className="text-[11px] font-bold block mt-1.5 text-stone-800">Delhi: ₹17,500</span>
-                    <span className="text-[9px] text-stone-600 font-mono-num font-bold">{TRIP_META.upiId}</span>
-                    <span className="text-[8px] text-emerald-700 font-medium block">A/c: Ganapathi Bhat</span>
+              {/* Official Google Pay QR Code Display */}
+              <div className="flex justify-center items-center flex-col gap-3 my-4">
+                <div className="bg-white p-3.5 rounded-2xl border-2 border-amber-400 shadow-lg text-stone-900 text-center max-w-xs">
+                  <img
+                    src="/images/official-gpay-qr.png"
+                    alt="Official Google Pay QR Code - Ganapathi Bhat"
+                    className="w-56 h-auto mx-auto rounded-xl shadow-xs"
+                  />
+                  <div className="mt-2.5 pt-2 border-t border-stone-200">
+                    <span className="text-[11px] font-bold block text-stone-900">
+                      Unified UPI ID: <strong className="text-emerald-700 font-mono-num">ganapathibhat5@ybl</strong>
+                    </span>
+                    <span className="text-[10px] text-stone-600 font-medium block">
+                      Payee: <strong>Ganapathi Bhat</strong> • Canara Bank 2821
+                    </span>
+                    <span className="text-[9px] text-amber-700 font-bold block mt-1">
+                      (Applies to Bangalore ₹34,000, Delhi ₹17,500 & Token ₹5,000)
+                    </span>
                   </div>
-                )}
-
-                {blrQrUrl && (
-                  <div className="bg-white p-3 rounded-xl border-2 border-amber-500 shadow-md text-stone-900 text-center">
-                    <img src={blrQrUrl} alt="Bangalore Plan QR Code" className="w-32 h-32 mx-auto rounded" />
-                    <span className="text-[11px] font-bold block mt-1.5 text-amber-800">Bangalore: ₹34,000</span>
-                    <span className="text-[9px] text-stone-600 font-mono-num font-bold">{TRIP_META.upiId}</span>
-                    <span className="text-[8px] text-emerald-700 font-medium block">A/c: Ganapathi Bhat</span>
-                  </div>
-                )}
+                </div>
               </div>
 
               {/* Copy UPI & Instant Booking Button */}

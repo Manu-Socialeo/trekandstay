@@ -876,47 +876,39 @@ export async function exportBrochureToPdf(
       url: 'https://wa.me/919902937730?text=Hi%20Trek%20%26%20Stay%20team%2C%20I%20have%20sent%20UPI%20payment%20to%20ganapathibhat5%40ybl%20and%20want%20to%20confirm%20my%20slot.'
     });
 
-    // 2 QR Codes Side by Side
-    const qr1X = pw / 2 - 44;
-    const qr2X = pw / 2 + 8;
+    // Official Google Pay QR Image & Unified Package Pay Details
+    const qrCardW = 34;
+    const qrCardH = 34;
+    const qrX = pw / 2 - qrCardW / 2;
     const qrY = upiBoxY + 19.5;
 
-    const payUrlDelhi = 'https://wa.me/919902937730?text=Hi%20Trek%20%26%20Stay%20team%2C%20I%20am%20paying%20%E2%82%B917%2C500%20via%20GPay%2FPhonePe%2FUPI%20for%20the%20Delhi%20Dodham%20Package.';
-    const payUrlBlr = 'https://wa.me/919902937730?text=Hi%20Trek%20%26%20Stay%20team%2C%20I%20am%20paying%20%E2%82%B934%2C000%20via%20GPay%2FPhonePe%2FUPI%20for%20the%20Bangalore%20Dodham%20Package.';
+    const universalPayUrl = 'https://wa.me/919902937730?text=Hi%20Trek%20%26%20Stay%20team%2C%20I%20am%20making%20a%20UPI%20payment%20to%20ganapathibhat5%40ybl%20for%20Dodham%20Expedition%20reservation.';
 
     try {
-      const upiDelhi = `upi://pay?pa=ganapathibhat5@ybl&pn=Ganapathi%20Bhat&am=17500&cu=INR&tn=Dodham-Delhi-Tour`;
-      const qrDelhi = getQRCodeDataURL(upiDelhi, 180);
-      if (qrDelhi) {
-        doc.addImage(qrDelhi, 'PNG', qr1X, qrY, 25, 25);
-        doc.setTextColor(...cTextMain);
-        doc.setFont('helvetica', 'bold');
-        doc.setFontSize(6);
-        doc.text('Delhi Plan: ₹17,500', qr1X + 12.5, qrY + 28.5, { align: 'center' });
-        doc.setFont('helvetica', 'normal');
-        doc.setFontSize(5);
-        doc.setTextColor(...cTextMuted);
-        doc.text('Click to Pay / Confirm ↗', qr1X + 12.5, qrY + 31.5, { align: 'center' });
-        doc.link(qr1X, qrY, 25, 33, { url: payUrlDelhi });
-      }
-
-      const upiBlr = `upi://pay?pa=ganapathibhat5@ybl&pn=Ganapathi%20Bhat&am=34000&cu=INR&tn=Dodham-Bangalore-Tour`;
-      const qrBlr = getQRCodeDataURL(upiBlr, 180);
-      if (qrBlr) {
-        doc.addImage(qrBlr, 'PNG', qr2X, qrY, 25, 25);
-        doc.setTextColor(...cTextMain);
-        doc.setFont('helvetica', 'bold');
-        doc.setFontSize(6);
-        doc.text('Bangalore: ₹34,000', qr2X + 12.5, qrY + 28.5, { align: 'center' });
-        doc.setFont('helvetica', 'normal');
-        doc.setFontSize(5);
-        doc.setTextColor(...cTextMuted);
-        doc.text('Click to Pay / Confirm ↗', qr2X + 12.5, qrY + 31.5, { align: 'center' });
-        doc.link(qr2X, qrY, 25, 33, { url: payUrlBlr });
+      if (BROCHURE_IMAGES.officialGpayQr) {
+        doc.addImage(BROCHURE_IMAGES.officialGpayQr, 'PNG', qrX, qrY, qrCardW, qrCardH);
+        doc.link(qrX, qrY, qrCardW, qrCardH, { url: universalPayUrl });
+      } else {
+        const upiUniversal = `upi://pay?pa=ganapathibhat5@ybl&pn=Ganapathi%20Bhat&cu=INR&tn=Dodham-Yatra-Booking`;
+        const qrUniversal = getQRCodeDataURL(upiUniversal, 180);
+        if (qrUniversal) {
+          doc.addImage(qrUniversal, 'PNG', qrX, qrY, 28, 28);
+          doc.link(qrX, qrY, 28, 28, { url: universalPayUrl });
+        }
       }
     } catch (e) {
       console.warn('QR error:', e);
     }
+
+    // Unified Payee & Package Guide Under QR
+    doc.setTextColor(...cTextMain);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(6.5);
+    doc.text('Unified UPI: ganapathibhat5@ybl  (Canara Bank 2821)', pw / 2, qrY + qrCardH + 3.5, { align: 'center' });
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(5.5);
+    doc.setTextColor(...cTextMuted);
+    doc.text('Applies to Delhi Plan (₹17,500), Bangalore Plan (₹34,000) & Token (₹5,000)', pw / 2, qrY + qrCardH + 6.5, { align: 'center' });
 
     // Two High-Impact Clickable Action Buttons for Instant GPay / UPI / WhatsApp Checkout
     const btnRowY = upiBoxY + upiBoxH - 12.5;
@@ -932,7 +924,7 @@ export async function exportBrochureToPdf(
     doc.setFontSize(6.8);
     doc.text('⚡ CLICK TO PAY VIA GPAY / PHONEPE / WHATSAPP', b1X + actionBtnW / 2, btnRowY + 5.5, { align: 'center' });
     doc.link(b1X, btnRowY, actionBtnW, actionBtnH, {
-      url: 'https://wa.me/919902937730?text=Hello%20Trek%20%26%20Stay%20team%2C%20I%20want%20to%20pay%20via%20UPI%20(GPay%2FPhonePe%2FPaytm)%20for%20Dodham%20Yatra.'
+      url: 'https://wa.me/919902937730?text=Hello%20Trek%20%26%20Stay%20team%2C%20I%20want%20to%20pay%20via%20UPI%20(GPay%2FPhonePe%2FPaytm)%20to%20UPI%20ID%3A%20ganapathibhat5%40ybl'
     });
 
     // Button 2: Web Payment Portal
