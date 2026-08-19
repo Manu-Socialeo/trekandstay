@@ -14,38 +14,6 @@ export function Footer({ onOpenBooking, onOpenPayment, onNavigate }: FooterProps
     <footer className="bg-slate-950 text-slate-400 pt-12 pb-8 px-6 md:px-12 border-t border-slate-900">
       <div className="max-w-7xl mx-auto">
         
-        {/* Featured Upcoming Expedition Callout Banner in Footer */}
-        <div className="mb-10 p-5 sm:p-6 rounded-3xl bg-gradient-to-r from-amber-950/60 via-slate-900 to-emerald-950/60 border border-amber-500/40 shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-5">
-          <div className="flex items-start sm:items-center gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-amber-500/20 text-amber-400 border border-amber-500/30 flex items-center justify-center text-2xl shrink-0 shadow-inner">
-              🏔️
-            </div>
-            <div>
-              <div className="flex items-center gap-2 flex-wrap mb-1">
-                <span className="text-[10px] font-black uppercase tracking-widest text-amber-400">Featured Upcoming Yatra</span>
-                <span className="bg-emerald-500/20 text-emerald-300 text-[10px] font-bold px-2 py-0.5 rounded-full border border-emerald-500/30 flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                  <span>Slots Open: 2nd – 8th Oct</span>
-                </span>
-              </div>
-              <h3 className="text-base sm:text-lg font-bold text-white tracking-tight">
-                Dodham Yatra + Adventure Special (Kedarnath • Badrinath • Rishikesh)
-              </h3>
-              <p className="text-xs text-slate-300 mt-0.5">
-                Bangalore Flight & Delhi Transit Plans • Live UPI QR Booking • Packing Checklist • PDF Brochure
-              </p>
-            </div>
-          </div>
-
-          <button
-            onClick={() => onNavigate('upcoming')}
-            className="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-white rounded-full text-xs font-bold tracking-wide transition-all shadow-lg hover:shadow-amber-500/30 flex items-center justify-center gap-2 shrink-0 cursor-pointer active:scale-95"
-          >
-            <span>View Upcoming Trips & Dodham PDF</span>
-            <ArrowRight className="w-4 h-4" />
-          </button>
-        </div>
-
         {/* Compact 4-column layout in one row */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-10">
           {/* Column 1: Brand */}
