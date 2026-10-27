@@ -87,21 +87,40 @@ export function PolicyView({ initialTab = 'terms', onOpenBooking, onTabChange }:
             <div>
               <h2 className="text-xl font-bold text-slate-900 mb-2">1. Booking Agreement & Expedition Acceptance</h2>
               <p>
-                By reserving any trek package, campsite stay, or pilgrimage tour through Trek & Stay ("Trek & Stay", "we", "us", registered online at trekandstay.com), the primary booker acknowledges and accepts all operational guidelines on behalf of all participants in their party.
+                By reserving any trek package, campsite stay, sacred yatra, or winter expedition through Trek & Stay ("Trek & Stay", "we", "us", registered online at trekandstay.com), the primary booker acknowledges and accepts all operational guidelines and liability releases on behalf of all participants in their party.
               </p>
             </div>
 
             <div>
-              <h3 className="text-base font-bold text-slate-900 mb-2">2. Batch Cancellations & Rescheduling Policy</h3>
+              <h3 className="text-base font-bold text-slate-900 mb-2">2. Batch Cancellations & Structured Refund Schedules</h3>
               <p className="mb-2">
-                We believe in fair, transparent terms for our trekkers and pilgrimage guests:
+                We maintain fair, transparent cancellation policies tailored to the distinct operational realities of short weekend trails vs. long-distance Himalayan expeditions:
               </p>
-              <ul className="list-disc pl-5 space-y-1.5 text-slate-700">
-                <li><strong>7+ Days Before Departure:</strong> 100% credit towards any upcoming trek batch or full refund minus nominal forest permit fees.</li>
-                <li><strong>3 to 6 Days Before Departure:</strong> 50% credit voucher or free slot transfer to another nominated friend/trekker.</li>
-                <li><strong>Less than 72 Hours / No-Show:</strong> Due to pre-booked transport seats, permits, and food procurement, cancellations inside 72 hours are non-refundable.</li>
-                <li><strong>Rescheduling:</strong> You may reschedule your batch to another available weekend date free of charge up to 5 days prior to scheduled departure.</li>
-              </ul>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3">
+                <div className="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                  <h4 className="font-bold text-slate-900 mb-1.5 text-xs uppercase tracking-wide text-emerald-700">
+                    A. Western Ghats & Sahyadri Weekend Trails
+                  </h4>
+                  <ul className="list-disc pl-4 space-y-1 text-xs text-slate-700">
+                    <li><strong>7+ Days Before:</strong> 100% credit towards any upcoming batch or full refund minus nominal forest permit fees.</li>
+                    <li><strong>3 to 6 Days Before:</strong> 50% credit voucher or free slot transfer to another friend/family member.</li>
+                    <li><strong>Less than 72 Hours:</strong> Non-refundable due to pre-committed vehicle seats and forest entries.</li>
+                    <li><strong>Rescheduling:</strong> Free of charge up to 5 days prior to scheduled weekend departure.</li>
+                  </ul>
+                </div>
+
+                <div className="p-4 rounded-xl bg-slate-50 border border-slate-200">
+                  <h4 className="font-bold text-slate-900 mb-1.5 text-xs uppercase tracking-wide text-cyan-700">
+                    B. Himalayan Expeditions (Winter Spiti & Dodham Yatra)
+                  </h4>
+                  <ul className="list-disc pl-4 space-y-1 text-xs text-slate-700">
+                    <li><strong>30+ Days Before:</strong> 90% refund of total fee, or 100% future trip credit note.</li>
+                    <li><strong>15 to 29 Days Before:</strong> 50% refund of total package fee.</li>
+                    <li><strong>Less than 15 Days Before / No-Show:</strong> Strictly non-refundable due to pre-contracted mountain tempo travelers and remote homestay bookings.</li>
+                    <li><strong>Mid-tour voluntary drop or AMS descent:</strong> Non-refundable.</li>
+                  </ul>
+                </div>
+              </div>
             </div>
 
             <div>
@@ -118,22 +137,45 @@ export function PolicyView({ initialTab = 'terms', onOpenBooking, onTabChange }:
 
             <div>
               <h3 className="text-base font-bold text-slate-900 mb-2">4. Group Discounts & Promotional Rules</h3>
+              <ul className="list-disc pl-5 space-y-1.5 text-slate-700">
+                <li><strong>Weekend Trails:</strong> Flat ₹500 off per person for groups of 3+ trekkers; select multi-day long trails offer 1 free slot on 6 confirmed bookings.</li>
+                <li><strong>Winter Spiti Expedition:</strong> Flat ₹1,000 OFF per person for groups of 9 or more travelers booking simultaneously on the same departure date.</li>
+                <li><strong>Non-combinable:</strong> Group discounts apply to standard published rates and cannot be combined with ad-hoc external coupon codes.</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-base font-bold text-slate-900 mb-2">5. High-Altitude Expeditions, Buffer Days & Mountain Realities</h3>
+              <ul className="list-disc pl-5 space-y-1.5 text-slate-700">
+                <li><strong>Buffer Day Stays:</strong> Expeditions include scheduled accommodation nights (e.g. 7 nights for Winter Spiti). Day 8 buffer days absorb snowfall delays. Any forced extended stay beyond scheduled nights (Night 8 onwards due to road closures) is billed directly at local actuals.</li>
+                <li><strong>4×4 Specialized Snow Rescue / Transfers:</strong> Standard mountain tempo travelers/SUVs are provided. Where excessive snow, black ice, or local administration orders mandate specialized 4×4 vehicles with snow chains, local transfer costs are shared pro-rata among participants at actuals without markup.</li>
+                <li><strong>Winter Sub-Zero Plumbing & Bukhari Heating:</strong> In sub-zero Himalayan winters (-10°C to -25°C), running water pipes freeze solid. Running taps are substituted by traditional bucket hot water and clean dry compost toilets. Homestays provide central wood-fired Bukhari stoves. Individual electric room heaters may carry a nominal surcharge depending on village power supply.</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-base font-bold text-slate-900 mb-2">6. Medical Fitness, Altitude Illness (AMS) & Evacuation</h3>
+              <p className="mb-2">
+                Participants are responsible for declaring pre-existing medical conditions (cardiac ailments, severe asthma, chronic hypertension). High-altitude itineraries (11,000 ft to 15,000 ft) require reasonable cardiovascular stamina.
+              </p>
+              <ul className="list-disc pl-5 space-y-1.5 text-slate-700">
+                <li>Trek & Stay captains carry group first-aid kits, pulse oximeters, and basic emergency oxygen support.</li>
+                <li>Participants are strongly advised to obtain comprehensive domestic travel insurance covering high-altitude medical emergency and search/evacuation costs.</li>
+                <li>Trek & Stay acts as an adventure coordinator; all outside ambulance, hospital, or helicopter search and rescue charges are strictly payable directly by the participant or their insurer.</li>
+              </ul>
+            </div>
+
+            <div>
+              <h3 className="text-base font-bold text-slate-900 mb-2">7. Leave-No-Trace & Eco-Sanctuary Conduct</h3>
               <p>
-                Our group discount offers (₹500 off on 3+ trekkers; 6 bookings unlocking 1 free slot on select long multi-day trails) apply to standard batch rates and cannot be combined with unverified coupons.
+                Trekkers must adhere to Karnataka Forest Department, Western Ghats Ecology, Maharashtra Wildlife, and Himalayan local council regulations. Single-use plastic dumping, littering, or consumption of alcohol/substances during active trails, sacred shrine premises, and Buddhist monasteries is strictly forbidden.
               </p>
             </div>
 
             <div>
-              <h3 className="text-base font-bold text-slate-900 mb-2">4. Leave-No-Trace & Eco-Sanctuary Conduct</h3>
+              <h3 className="text-base font-bold text-slate-900 mb-2">8. Weather, Landslides & Force Majeure</h3>
               <p>
-                Trekkers must adhere to Karnataka Forest Department, Western Ghats Ecology, and Maharashtra Wildlife regulations. Littering, single-use plastic dumping, or consumption of alcohol/substances during active trekking trails and sacred pilgrimages is strictly forbidden.
-              </p>
-            </div>
-
-            <div>
-              <h3 className="text-base font-bold text-slate-900 mb-2">5. Weather & Force Majeure</h3>
-              <p>
-                In case of unexpected cloudbursts, severe landslides, or administrative red alerts in mountain corridors, Trek & Stay captains hold the authority to alter route sections or offer compensatory future dates to ensure 100% human safety.
+                In case of sudden cloudbursts, severe landslides, BRO road clearing operations, or administrative red alerts, Trek & Stay captains hold the ultimate authority to alter route sections or offer compensatory future dates to ensure 100% human life safety.
               </p>
             </div>
           </div>

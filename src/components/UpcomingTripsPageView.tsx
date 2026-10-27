@@ -26,7 +26,9 @@ import {
 } from 'lucide-react';
 import { destinationsData, DestinationDetail } from '../data/destinationsData';
 import { DocumentBrochureView } from './DocumentBrochureView';
+import { SpitiBrochureView } from './SpitiBrochureView';
 import { exportBrochureToPdf, openPrintOptimizedWindow } from '../utils/pdfExport';
+import { exportSpitiBrochureToPdf } from '../utils/spitiPdfExport';
 import { TRIP_META } from '../data/tripData';
 
 interface UpcomingTripsPageViewProps {
@@ -50,9 +52,55 @@ export interface UpcomingTripBatch {
   status: 'Filling Fast' | 'Available' | 'Few Slots Left' | 'Almost Full';
   badge?: string;
   isDodhamSpecial?: boolean;
+  isSpitiSpecial?: boolean;
 }
 
 export const initialUpcomingTrips: UpcomingTripBatch[] = [
+  {
+    id: 'batch-spiti-nov-1',
+    title: 'Winter Spiti Expedition (Chandigarh • Kaza • Key • Chicham • Hikkim)',
+    destinationSlug: 'winter-spiti-expedition',
+    image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80',
+    dateRange: 'November 07 - November 14, 2026',
+    month: 'November 2026',
+    duration: '8D/7N',
+    price: '₹23,000 (Chandigarh to Chandigarh)',
+    departureHub: 'Chandigarh / Delhi',
+    availableSlots: 8,
+    status: 'Filling Fast',
+    badge: '❄️ Sub-Zero Flagship',
+    isSpitiSpecial: true
+  },
+  {
+    id: 'batch-spiti-dec-1',
+    title: 'Winter Spiti Christmas & New Year White Desert Expedition',
+    destinationSlug: 'winter-spiti-expedition',
+    image: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=800&q=80',
+    dateRange: 'December 25, 2026 - January 01, 2027',
+    month: 'December 2026',
+    duration: '8D/7N',
+    price: '₹23,000 (Chandigarh to Chandigarh)',
+    departureHub: 'Chandigarh / Delhi',
+    availableSlots: 4,
+    status: 'Few Slots Left',
+    badge: '🎄 Christmas & New Year Special',
+    isSpitiSpecial: true
+  },
+  {
+    id: 'batch-spiti-jan-1',
+    title: 'Winter Spiti Deep Freeze (Langza • Hikkim • Gue Mummy)',
+    destinationSlug: 'winter-spiti-expedition',
+    image: 'https://images.unsplash.com/photo-1589182373726-e4f658ab50f0?auto=format&fit=crop&w=800&q=80',
+    dateRange: 'January 23 - January 30, 2027',
+    month: 'January 2027',
+    duration: '8D/7N',
+    price: '₹23,000 (Chandigarh to Chandigarh)',
+    departureHub: 'Chandigarh / Delhi',
+    availableSlots: 6,
+    status: 'Filling Fast',
+    badge: '❄️ Deep Freeze Special',
+    isSpitiSpecial: true
+  },
   {
     id: 'batch-dodham-oct-1',
     title: 'Dodham Yatra & Adventure Special (Kedarnath • Badrinath • Rishikesh)',
@@ -160,8 +208,8 @@ export function UpcomingTripsPageView({
   onNavigateHome,
   onOpenPayment
 }: UpcomingTripsPageViewProps) {
-  // Tabs: 'calendar' (Batches) | 'brochure' (Dodham Master Brochure)
-  const [activeTab, setActiveTab] = useState<'calendar' | 'brochure'>('calendar');
+  // Tabs: 'calendar' (Batches) | 'brochure' (Dodham Master Brochure) | 'spiti-brochure' (Winter Spiti Master Brochure)
+  const [activeTab, setActiveTab] = useState<'calendar' | 'brochure' | 'spiti-brochure'>('calendar');
   const [selectedMonth, setSelectedMonth] = useState<string>('all');
   const [trips] = useState<UpcomingTripBatch[]>(initialUpcomingTrips);
 
@@ -171,11 +219,13 @@ export function UpcomingTripsPageView({
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    document.title = 'Upcoming Trips & Dodham PDF Brochure | Trek & Stay';
+    document.title = 'Upcoming Trips & Expeditions | Trek & Stay';
 
     // Hash check for direct brochure link
     const hash = window.location.hash.toLowerCase();
-    if (
+    if (hash.includes('spiti')) {
+      setActiveTab('spiti-brochure');
+    } else if (
       hash.includes('dodham') ||
       hash.includes('brochure') ||
       hash.includes('itinerary')
@@ -192,7 +242,29 @@ export function UpcomingTripsPageView({
       await exportBrochureToPdf((step) => {
         setPdfProgressText(step);
       });
-      setPdfProgressText('Brochure PDF downloaded successfully!');
+      setPdfProgressText('Dodham PDF downloaded successfully!');
+      setTimeout(() => {
+        setIsGeneratingPdf(false);
+        setPdfProgressText('');
+      }, 1500);
+    } catch (err) {
+      console.error('Download error:', err);
+      setTimeout(() => {
+        setIsGeneratingPdf(false);
+        setPdfProgressText('');
+      }, 1000);
+    }
+  };
+
+  const handleDownloadSpitiPdf = async () => {
+    setIsGeneratingPdf(true);
+    setPdfProgressText('Generating official 5-page Winter Spiti PDF brochure...');
+
+    try {
+      await exportSpitiBrochureToPdf((step) => {
+        setPdfProgressText(step);
+      });
+      setPdfProgressText('Winter Spiti PDF downloaded successfully!');
       setTimeout(() => {
         setIsGeneratingPdf(false);
         setPdfProgressText('');
@@ -208,6 +280,11 @@ export function UpcomingTripsPageView({
 
   const handleOpenBrochureTab = () => {
     setActiveTab('brochure');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleOpenSpitiTab = () => {
+    setActiveTab('spiti-brochure');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -238,17 +315,17 @@ export function UpcomingTripsPageView({
             </button>
 
             <span className="text-xs text-slate-500 font-medium hidden md:inline">
-              Upcoming Expeditions & Departure Batches 2026
+              Upcoming Expeditions & Departure Batches 2026-2027
             </span>
           </div>
 
           {/* Quick Tab Switcher */}
-          <div className="flex items-center gap-2 bg-slate-100 p-1 rounded-full border border-slate-200">
+          <div className="flex items-center gap-1.5 bg-slate-100 p-1 rounded-full border border-slate-200">
             <button
               onClick={() => setActiveTab('calendar')}
-              className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+              className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
                 activeTab === 'calendar'
-                  ? 'bg-emerald-600 text-white shadow-sm'
+                  ? 'bg-slate-950 text-white shadow-sm'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
@@ -257,28 +334,50 @@ export function UpcomingTripsPageView({
             </button>
 
             <button
+              onClick={() => setActiveTab('spiti-brochure')}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+                activeTab === 'spiti-brochure'
+                  ? 'bg-cyan-600 text-white shadow-sm font-extrabold'
+                  : 'text-slate-600 hover:text-cyan-700'
+              }`}
+            >
+              <Mountain className="w-3.5 h-3.5" />
+              <span>❄️ Winter Spiti Dossier</span>
+            </button>
+
+            <button
               onClick={() => setActiveTab('brochure')}
-              className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
+              className={`px-3.5 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
                 activeTab === 'brochure'
                   ? 'bg-amber-600 text-white shadow-sm font-extrabold'
                   : 'text-slate-600 hover:text-amber-700'
               }`}
             >
               <FileText className="w-3.5 h-3.5" />
-              <span>Dodham PDF & Itinerary</span>
+              <span>Dodham 2-Dham PDF</span>
             </button>
           </div>
 
           {/* Quick PDF & UPI CTA */}
           <div className="flex items-center gap-2">
             <button
+              onClick={handleDownloadSpitiPdf}
+              disabled={isGeneratingPdf}
+              className="flex items-center gap-1.5 bg-gradient-to-r from-cyan-600 to-cyan-500 hover:from-cyan-500 hover:to-cyan-400 text-white px-3.5 py-1.5 rounded-full text-xs font-bold shadow-sm transition-all cursor-pointer active:scale-95 disabled:opacity-50"
+              title="Download official Winter Spiti PDF brochure"
+            >
+              <Download className="w-3.5 h-3.5" />
+              <span>{isGeneratingPdf ? 'Rendering...' : 'Spiti PDF'}</span>
+            </button>
+
+            <button
               onClick={handleDownloadDodhamPdf}
               disabled={isGeneratingPdf}
-              className="flex items-center gap-1.5 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-white px-3.5 py-1.5 rounded-full text-xs font-bold shadow-sm transition-all cursor-pointer active:scale-95 disabled:opacity-50"
+              className="hidden sm:flex items-center gap-1.5 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-white px-3.5 py-1.5 rounded-full text-xs font-bold shadow-sm transition-all cursor-pointer active:scale-95 disabled:opacity-50"
               title="Download official Dodham PDF brochure"
             >
               <Download className="w-3.5 h-3.5" />
-              <span>{isGeneratingPdf ? 'Rendering PDF...' : 'Download Dodham PDF'}</span>
+              <span>Dodham PDF</span>
             </button>
 
             {onOpenPayment && (
@@ -331,7 +430,10 @@ export function UpcomingTripsPageView({
               { label: 'July 2026', val: 'july' },
               { label: 'August 2026', val: 'august' },
               { label: 'September 2026', val: 'september' },
-              { label: 'October 2026 (Dodham)', val: 'october' }
+              { label: 'October 2026 (Dodham)', val: 'october' },
+              { label: 'Nov 2026 (Winter Spiti)', val: 'november' },
+              { label: 'Dec 2026 (Winter Spiti)', val: 'december' },
+              { label: 'Jan 2027 (Winter Spiti)', val: 'january' }
             ].map((item) => (
               <button
                 key={item.val}
@@ -358,7 +460,9 @@ export function UpcomingTripsPageView({
                 <div 
                   key={trip.id}
                   className={`rounded-3xl overflow-hidden shadow-sm card-hover-lift flex flex-col justify-between relative group bg-white border transition-all duration-300 ${
-                    trip.isDodhamSpecial
+                    trip.isSpitiSpecial
+                      ? 'border-cyan-400/80 ring-2 ring-cyan-400/20 shadow-cyan-500/5'
+                      : trip.isDodhamSpecial
                       ? 'border-amber-400/80 ring-2 ring-amber-400/20 shadow-amber-500/5'
                       : 'border-slate-200 hover:border-emerald-500/40 hover:shadow-xl'
                   }`}
@@ -378,7 +482,9 @@ export function UpcomingTripsPageView({
                       <div className="absolute top-3 inset-x-3 flex items-center justify-between gap-2">
                         {trip.badge && (
                           <span className={`px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider backdrop-blur-md shadow-md ${
-                            trip.isDodhamSpecial 
+                            trip.isSpitiSpecial
+                              ? 'bg-cyan-500/90 text-slate-950 border border-cyan-300'
+                              : trip.isDodhamSpecial 
                               ? 'bg-amber-500/90 text-slate-950 border border-amber-300' 
                               : 'bg-emerald-600/90 text-white border border-emerald-400/30'
                           }`}>
@@ -442,7 +548,16 @@ export function UpcomingTripsPageView({
                         <span className="text-lg sm:text-xl font-black text-slate-900">{trip.price}</span>
                       </div>
 
-                      {trip.isDodhamSpecial ? (
+                      {trip.isSpitiSpecial ? (
+                        <button
+                          type="button"
+                          onClick={() => handleOpenSpitiTab()}
+                          className="text-xs font-bold text-cyan-600 hover:text-cyan-700 underline underline-offset-2 transition flex items-center gap-1 cursor-pointer"
+                        >
+                          <span>Spiti Dossier</span>
+                          <ArrowUpRight className="w-3.5 h-3.5" />
+                        </button>
+                      ) : trip.isDodhamSpecial ? (
                         <button
                           type="button"
                           onClick={() => handleOpenBrochureTab()}
@@ -524,6 +639,26 @@ export function UpcomingTripsPageView({
           {/* Embedded Full Document Brochure */}
           <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-xl bg-white">
             <DocumentBrochureView
+              onNavigateHome={() => onNavigateHome('home')}
+              onOpenGlobalBooking={onOpenBooking}
+              onOpenGlobalPayment={onOpenPayment}
+              hideTopBar={false}
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* =========================================================================
+          TAB 3: INTEGRATED WINTER SPITI MASTER DOSSIER & PDF VIEWER
+      ========================================================================= */}
+      <div 
+        id="spiti-brochure-wrapper"
+        className={activeTab === 'spiti-brochure' ? 'block' : 'hidden'}
+      >
+        <div className="max-w-7xl mx-auto px-2 sm:px-4 md:px-8">
+          {/* Embedded Full Winter Spiti Brochure */}
+          <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-xl bg-white">
+            <SpitiBrochureView
               onNavigateHome={() => onNavigateHome('home')}
               onOpenGlobalBooking={onOpenBooking}
               onOpenGlobalPayment={onOpenPayment}

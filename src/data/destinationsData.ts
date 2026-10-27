@@ -693,6 +693,146 @@ export const destinationsData: DestinationDetail[] = [
         answer: 'Kaas Plateau flowers bloom predominantly between late August and early October after peak monsoon rains.'
       }
     ]
+  },
+  {
+    id: 'winter-spiti-expedition',
+    slug: 'winter-spiti-expedition',
+    title: 'Winter Spiti Expedition',
+    tagline: 'Snow-Covered Mountains, Ancient Monasteries & White Deserts',
+    subtitle: '8D/7N • Chandigarh to Chandigarh • Sub-Zero High Altitude',
+    price: '₹ 23,000',
+    regularPrice: '₹ 25,500',
+    badge: 'Flagship Expedition',
+    duration: '8 Days / 7 Nights',
+    difficulty: 'Moderate to Challenging',
+    highestAltitude: '14,567 ft (Hikkim Post Office)',
+    trekDistance: 'Vehicle Expedition with High-Altitude Village Walks',
+    departureHubs: ['Chandigarh', 'Delhi', 'Shimla', 'Bengaluru', 'Pune', 'Mumbai'],
+    campsiteLocation: 'Narkanda, Kalpa, Tabo & Kaza Winter Homestays',
+    bestSeason: 'November to May (Winter & Spring)',
+    groupDiscountOffer: '₹1,000 OFF per person for bookings of 9 or more',
+    overview: 'Experience the magical winter landscapes of Spiti Valley — snow-covered mountains, ancient monasteries, frozen waterfalls, high-altitude villages and some of the most breathtaking roads in the Himalayas. Traverse from Chandigarh through Narkanda, the dramatic gorges of Kinnaur, Sangla and Chitkul, entering the sacred white desert of Tabo, Gue, Dhankar, Kaza, Key Monastery, Chicham Bridge, and the world\'s highest post office in Hikkim.',
+    story: 'Winter transforms the high trans-Himalayan valley of Spiti into an ethereal wonderland of blue skies and pristine white snow. With tourist crowds long gone, the valley reveals its true spiritual soul. Sit around crackling wood-fired Bukharis with local Spitian families, sip hot butter tea with lamas inside 1,000-year-old mud monasteries, marvel at frozen waterfalls suspended in time, and cross Asia\'s highest suspension bridge at Chicham. Trek & Stay curates an all-inclusive 8-day expedition with seasoned snow drivers and warm homestays.',
+    highlights: [
+      'Iconic Key Monastery cascading over frozen Spiti river basin',
+      'Chicham Bridge (13,596 ft) Asia\'s highest suspension bridge over a 500ft gorge',
+      'Post a postcard from World\'s Highest Post Office in Hikkim (14,567 ft)',
+      'Langza Village giant golden Buddha statue gazing across snow peaks',
+      '500-year-old naturally preserved Gue Buddhist Monk Mummy',
+      '1,000-year-old Tabo Monastery (Ajanta of the Himalayas)',
+      'Dhankar cliff monastery fortress & Khab river confluence',
+      'Traditional Spitian heated homestays with wood-fired Bukhari stoves'
+    ],
+    inclusions: [
+      'Chandigarh-to-Chandigarh dedicated mountain transportation (Tempo Traveler / SUV)',
+      'All local sightseeing and route transfers as per accessible road conditions',
+      'Daily 2 meals (7 Breakfasts & 6 Hot Dinners) as specified in meal plan',
+      'Accommodation during scheduled 7 nights in handpicked hotels & heated homestays',
+      'Seasoned Himalayan expedition leader & local drivers with snow chain expertise',
+      'Inner line permits, state taxes, and toll clearances',
+      'Group first-aid kit, pulse oximeter, and emergency oxygen assistance'
+    ],
+    exclusions: [
+      'Buffer-day accommodation, meals and transport beyond scheduled 7 nights, if required',
+      'Additional 4x4 vehicles required due to snow/police restrictions (shared at actuals)',
+      'Room heater charges where separately billed by remote homestays',
+      'Lunches, cafe expenses, personal tea, coffee, and packaged water',
+      'Travel insurance and emergency evacuation expenses'
+    ],
+    dayByDayItinerary: [
+      {
+        day: 1,
+        title: 'Chandigarh – Shimla – Narkanda',
+        description: 'Morning pickup from Chandigarh. Scenic ascent through Himalayan foothills, Shimla Mall Road, Jakhu Temple, and evening arrival at Narkanda.',
+        meals: 'Dinner',
+        stay: 'Narkanda Mountain Lodge',
+        activities: ['Chandigarh pickup', 'Shimla Ridge walk', 'Jakhu Temple (optional)', 'Team briefing']
+      },
+      {
+        day: 2,
+        title: 'Narkanda – Sangla – Chitkul – Kalpa',
+        description: 'Drive along Sutlej Gorge and Kinnaur rock gates. Explore Baspa valley, Chitkul (last border village), and sunset over Kinner Kailash at Kalpa.',
+        meals: 'Breakfast & Dinner',
+        stay: 'Kalpa Kinnaur Lodge',
+        activities: ['Kinnaur rock cut tunnels', 'Sangla & Baspa valley', 'Chitkul exploration', 'Kinner Kailash sunset']
+      },
+      {
+        day: 3,
+        title: 'Kalpa – Khab Sangam – Nako – Tabo',
+        description: 'Visit Khab Sangam river confluence, ascend Ka Loops to Nako village & frozen lake, and enter Spiti Valley at ancient Tabo.',
+        meals: 'Breakfast & Dinner',
+        stay: 'Tabo Guesthouse',
+        activities: ['Khab river confluence', 'Ka Loops hairpins', 'Nako lake walk', 'Tabo arrival']
+      },
+      {
+        day: 4,
+        title: 'Tabo – Gue – Dhankar – Kaza',
+        description: 'Explore 1,000-year-old Tabo Monastery, 500-year Gue Mummy, Dhankar cliff fortress, frozen waterfalls, and check-in to Kaza homestay.',
+        meals: 'Breakfast & Dinner',
+        stay: 'Kaza Winter Homestay',
+        activities: ['Tabo mud frescoes', 'Gue Mummy temple', 'Dhankar cliff scramble', 'Bukhari gathering']
+      },
+      {
+        day: 5,
+        title: 'Kaza – Key – Chicham – Langza – Hikkim – Kaza',
+        description: 'Visit iconic Key Gompa, cross Asia\'s highest suspension bridge at Chicham, visit giant Langza Buddha and World\'s Highest Post Office in Hikkim.',
+        meals: 'Breakfast & Dinner',
+        stay: 'Kaza Winter Homestay',
+        activities: ['Key Monastery prayer hall', 'Chicham 500ft gorge', 'Langza Buddha statue', 'Hikkim Post Office']
+      },
+      {
+        day: 6,
+        title: 'Kaza – Tabo/Nako Region – Narkanda',
+        description: 'Begin scenic return descent along Spiti and Sutlej river corridors to the pine forests of Narkanda.',
+        meals: 'Breakfast & Dinner',
+        stay: 'Narkanda Pine Hotel',
+        activities: ['Canyon descent drive', 'Kinnaur valley vistas', 'Celebratory group dinner']
+      },
+      {
+        day: 7,
+        title: 'Narkanda – Chandigarh',
+        description: 'Leisurely breakfast and final descent through Shivalik hills and Himalayan Expressway to Chandigarh airport/station.',
+        meals: 'Breakfast',
+        stay: 'Onward Journey',
+        activities: ['Foothills descent', 'Group farewell', 'Chandigarh drop-off']
+      },
+      {
+        day: 8,
+        title: 'Buffer Day / Return Journey Cushion',
+        description: 'Mandatory contingency day to absorb snowfall or mountain highway delays. If roads are clear, participants proceed with return flights.',
+        meals: 'As per travel',
+        stay: 'Buffer / Cushion Day',
+        activities: ['Contingency absorption', 'Return flights/trains']
+      }
+    ],
+    campsiteDetails: {
+      name: 'Trek & Stay Winter Spiti Homestays & Lodges',
+      location: 'Narkanda, Kalpa, Tabo & Kaza, Himachal Pradesh',
+      elevation: '8,884 ft to 12,500 ft',
+      amenities: ['Traditional Bukhari wood stoves', 'Insulated thick quilts', 'Bucket hot water', 'Homestay dining', 'Emergency oxygen & oximeter'],
+      description: 'Handpicked authentic mountain hotels in Kinnaur and cozy Spitian mud homestays with central wood-fired bukharis, ensuring warmth and safety in sub-zero winter temperatures.'
+    },
+    image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=2070&auto=format&fit=crop',
+    gallery: [
+      'https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=2070&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1589182373726-e4f658ab50f0?q=80&w=2070&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1518495973542-4542c06a5843?q=80&w=2070&auto=format&fit=crop',
+      'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=2070&auto=format&fit=crop'
+    ],
+    faq: [
+      {
+        question: 'How cold does it get in Spiti during winter?',
+        answer: 'Daytime temperatures range from -5°C to 5°C, while nighttime temperatures drop to -15°C to -25°C in Kaza. Our homestays feature traditional wood-burning Bukhari stoves and heavy thermal bedding.'
+      },
+      {
+        question: 'How are washrooms managed when pipelines freeze?',
+        answer: 'Due to severe freezing, piped running water is replaced by bucket hot water and traditional Spitian dry compost toilets, which are clean, odorless, and ecologically adapted for winter.'
+      },
+      {
+        question: 'What group discount is available for the Winter Spiti Expedition?',
+        answer: 'We provide an exclusive flat ₹1,000 discount per person for group registrations of 9 or more travelers booking together.'
+      }
+    ]
   }
 ];
 

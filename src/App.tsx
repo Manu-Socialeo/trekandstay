@@ -68,7 +68,7 @@ export default function App() {
       } else if (hash === 'blogs' || hash === 'blog') {
         setActiveBlogSlug(null);
         setCurrentView('blogs');
-      } else if (hash === 'upcoming' || hash === 'upcoming-itinerary' || hash === 'itinerary' || hash === 'dodham' || hash === 'dodham-yatra' || hash === 'upcoming-trips' || hash === 'batches') {
+      } else if (hash === 'upcoming' || hash === 'upcoming-itinerary' || hash === 'itinerary' || hash === 'dodham' || hash === 'dodham-yatra' || hash === 'spiti' || hash === 'winter-spiti' || hash === 'winter-spiti-expedition' || hash === 'upcoming-trips' || hash === 'batches') {
         setCurrentView('upcoming');
       } else if (hash === 'packages' || hash === 'destinations') {
         setCurrentView('packages');
